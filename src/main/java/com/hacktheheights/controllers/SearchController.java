@@ -19,7 +19,7 @@ public class SearchController {
         return "login"; 
     }
     @GetMapping("/index")
-    public String home() {
+    public String listings() {
         return "index"; 
     }
 
