@@ -31,6 +31,6 @@ public class Textbook {
   public void setPrice(double p) { this.price = p;}
 
   public String toString() {
-    return String.format("%s - %s by %s (ISBN: %s) $%.2f", courseCode, title, author, isbn, price);
+    return String.format("%s - %s by %s (ISBN: %s) $%.2f", courseCode, title, author, ISBN, price);
   }
 }
