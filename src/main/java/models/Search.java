@@ -8,7 +8,7 @@ public class Search{
   }
 
   public HashMap<Account, List<Textbook> > searchResults(String query){
-    Map<Account, List<Textbook>> results = new HashMap<>();
+    HashMap<Account, List<Textbook>> results = new HashMap<>();
     for (Account a : listedItems.keySet()) {
       List<Textbook> books = new ArrayList<>();
       for (Textbook t : listedItems.get(a)){
