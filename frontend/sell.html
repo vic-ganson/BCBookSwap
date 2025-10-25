@@ -25,6 +25,7 @@
       width: 100%;
     }
 
+    /* SIDEBAR */
     .sidebar {
       width: 220px;
       background: linear-gradient(180deg, #8b0000, #a83232);
@@ -66,6 +67,7 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
+    /* MAIN CONTENT */
     .main-content {
       flex: 1;
       padding: 2rem;
@@ -82,6 +84,7 @@
       margin-bottom: 2rem;
     }
 
+    /* FORM */
     form {
       background: white;
       padding: 2rem;
@@ -152,6 +155,7 @@
       font-size: 0.9rem;
     }
 
+    /* POPUP */
     .popup-overlay {
       display: none;
       position: fixed;
@@ -227,6 +231,7 @@
 <body>
   <div class="layout">
 
+    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="logo">BC<br>Exchange</div>
       <nav>
@@ -236,6 +241,7 @@
       </nav>
     </aside>
 
+    <!-- MAIN CONTENT -->
     <div class="main-content">
       <header>
         <h1>Sell a Book</h1>
@@ -248,14 +254,15 @@
           <input type="text" id="title" name="title" placeholder="e.g., ¡ANDA!" required>
         </div>
 
+
         <div>
-          <label for="course">Course Name</label>
-          <input type="text" id="course" name="course" placeholder="e.g., Elementary Spanish I">
+          <label for="isbn">ISBN</label>
+          <input type="text" id="isbn" name="isbn" placeholder="e.g., 978-0-306-40615-7" required>
         </div>
 
         <div>
-          <label for="course">Course Code</label>
-          <input type="text" id="course" name="course" placeholder="e.g., SPAN1101">
+          <label for="course">Course Name</label>
+          <input type="text" id="course" name="course" placeholder="e.g., Elementary Spanish I" requires>
         </div>
 
         <div>
@@ -280,6 +287,7 @@
     </div>
   </div>
 
+  <!-- SUCCESS POPUP -->
   <div class="popup-overlay" id="popupOverlay">
     <div class="popup">
       <h2>Listing Submitted</h2>
