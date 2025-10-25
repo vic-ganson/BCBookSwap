@@ -1,22 +1,24 @@
-# Use official Java 17 image
-FROM eclipse-temurin:17-jdk-jammy
-
-# Set working directory
+# Stage 1: Build the Java project
+FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /app
 
-# Copy Maven project files
+# Copy Maven config and source code
 COPY pom.xml .
 COPY src ./src
 
-# Build the project inside the container
+# Install Maven and build
 RUN apt-get update && apt-get install -y maven
 RUN mvn clean package -DskipTests
 
-# Copy the built jar
-COPY target/HackTheHeightsProject-1.0.0.jar app.jar
+# Stage 2: Run the Java application
+FROM eclipse-temurin:17-jdk-jammy
+WORKDIR /app
 
-# Expose the port (Render will assign PORT env)
+# Copy built JAR from the build stage
+COPY --from=build /app/target/HackTheHeightsProject-1.0.0.jar app.jar
+
+# Expose port (Render sets PORT env variable)
 EXPOSE 8080
 
-# Run the jar
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+# Run the JAR
+ENTRYPOINT ["java","-jar","app.jar"]
