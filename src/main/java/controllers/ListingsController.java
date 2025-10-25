@@ -16,31 +16,27 @@ public class ListingsController {
     private final Listings listings = new Listings();
 
     @GetMapping("/{sellerId}")
-    public String getSellerListings(@PathVariable String sellerId, Model model) {
-        Account seller = new Account(sellerId); // create Account object for now
+    public String getSellerListings(@PathVariable Account seller, Model model) {
         List<Textbook> books = listings.getListingsBySeller(seller);
         model.addAttribute("books", books);
         return "sellerListings"; // template: sellerListings.html
     }
 
     @PostMapping("/add")
-    public String addListing(@RequestParam String sellerId,
+    public String addListing(@RequestParam Account seller,
                              @RequestParam String code,
                              @RequestParam String title,
                              @RequestParam String author,
                              @RequestParam String ISBN,
                              @RequestParam double price,
                              @RequestParam String condition) {
-
-        Account seller = new Account(sellerId);
         listings.addListing(seller, code, title, author, ISBN, price, condition);
-        return "redirect:/listings/" + sellerId;
+        return "redirect:/listings/" + seller.getEmail();
     }
 
     @PostMapping("/remove")
-    public String removeListing(@RequestParam String sellerId,
+    public String removeListing(@RequestParam Account seller,
                                 @RequestParam String code) {
-        Account seller = new Account(sellerId);
         List<Textbook> sellerBooks = listings.getListingsBySeller(seller);
         for (Textbook t : sellerBooks) {
             if (t.getCourseCode().equals(code)) {
@@ -48,12 +44,11 @@ public class ListingsController {
                 break;
             }
         }
-        return "redirect:/listings/" + sellerId;
+        return "redirect:/listings/" + seller.getEmail();
     }
 
     @PostMapping("/removeSeller")
-    public String removeSeller(@RequestParam String sellerId) {
-        Account seller = new Account(sellerId);
+    public String removeSeller(@RequestParam Account seller) {
         listings.removeSeller(seller);
         return "redirect:/";
     }
