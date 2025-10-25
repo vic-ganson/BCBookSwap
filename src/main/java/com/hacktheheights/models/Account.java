@@ -1,4 +1,4 @@
-package com/hacktheheights/models;
+package com.hacktheheights.models;
 public class Account{
 
   private String name;
