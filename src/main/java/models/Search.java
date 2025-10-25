@@ -2,11 +2,9 @@ package models;
 import java.util.*;
 public class Search{
   private HashMap<Account, List<Textbook> > listedItems;
-  private String search;
   
-  public Search(HashMap<Account, List<Textbook> > l, String s){
+  public Search(HashMap<Account, List<Textbook> > l){
     this.listedItems = l;
-    this.search = s;
   }
 
   public HashMap<Account, List<Textbook> > searchResults(String query){
