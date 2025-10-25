@@ -1,5 +1,5 @@
 public class Textbook {
-  private String seller;
+  private Account seller;
   private String courseCode;
   private String title;
   private String author;
@@ -7,7 +7,7 @@ public class Textbook {
   private double price;
   private String condition;
 
-  public Textbook (s, code, t, a, i, p, cond){
+  public Textbook (Account s, String code, String t, String a, String i, doulbe p, String cond){
     this.seller = s;
     this.courseCode = code;
     this.title = t;
