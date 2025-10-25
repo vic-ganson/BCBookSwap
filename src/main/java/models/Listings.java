@@ -8,7 +8,7 @@ public class Listings {
     this.listings = new HashMap<>();
   }
 
-  public void addListing(Account seller, String code, String title, String author, String ISBN, String price, String condition) {
+  public void addListing(Account seller, String code, String title, String author, String ISBN, double price, String condition) {
     Textbook book = new Textbook(seller, code, title, author, ISBN, price, condition);
     List<Textbook> sellerBooks = listings.getOrDefault(seller, new ArrayList<>());
     sellerBooks.add(book);
