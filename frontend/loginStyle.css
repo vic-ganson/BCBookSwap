@@ -1,0 +1,78 @@
+/*center form*/
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fff;
+}
+
+/*Login form styling*/
+.loginForm {
+    font-size: 36px;
+    text-align: center;
+    width: 400px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*username*/
+input[type=text] {
+    font-size: 16px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+/*password*/
+input[type=password] {
+    font-size: 16px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+/*login button*/
+input[type=submit] {
+    margin: 12px 0;
+    text-align: center;
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/*login hovering*/
+input[type=submit]:hover {
+    background-color: white;
+    color: #04AA6D;
+    border: 2px solid #04AA6D;
+}
+
+/*show password*/
+.showPass {
+    position: absolute;
+    right: 20px;
+    top: 38%;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
