@@ -1,4 +1,4 @@
-package models;
+package com/hacktheheights/models;
 import java.util.*;
 public class Listings {
 
