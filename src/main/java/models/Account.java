@@ -1,3 +1,4 @@
+package models;
 public class Account{
 
   private String name;
