@@ -1,5 +1,5 @@
-import java.util.HashMap
-import java.util.Map
+import java.util.HashMap;
+import java.util.Map;
 public class SearchBar{
   private HashMap<String, Textbook> listedItems;
   private String search;
