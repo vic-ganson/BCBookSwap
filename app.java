@@ -12,7 +12,7 @@ public class App {
   
   public void addListing(String seller, String code, String title, String author, String ISBN, String price, String condition){
     Textbook book = new Textbook(seller, code, title, author, ISBN, price, condition);
-    if listings.contains(seller){
+    if (listings.contains(seller)){
       priorBooks = listings.get(seller);
       currentBooks = priorBooks.add(book);
       listings.put(seller, currentBooks);
@@ -23,7 +23,12 @@ public class App {
     }
   }
   public void removeListing(String seller, Textbook book){
-    listings.remove(seller, book);
+    priorBooks = listings.get(seller);
+    currentBooks = priorBooks.remove(book);
+    listings.put(seller, currentBooks);
+  }
+  public void removeSeller(String seller){
+    listings.remove(seller);
   }
   public static void main(String[] args){
   }
