@@ -15,6 +15,8 @@ function toggleVisible2() {
   }
 }
 
+const API_URL = "https://hacktheheightsproject.onrender.com";
+
 //password checking
 function checkCredentials(){
   let usernameEntry = document.getElementById('loginUsername').value;
