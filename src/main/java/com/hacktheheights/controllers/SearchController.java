@@ -1,7 +1,7 @@
 package com.hacktheheights.controllers;
 import com.hacktheheights.models.Account;
-import models.Search;
-import models.Textbook;
+import com.hacktheheights.models.Search;
+import com.hacktheheights.models.Textbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
