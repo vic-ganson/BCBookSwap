@@ -1,7 +1,7 @@
-package com.hacktheheights.controllers;
+package controllers;
 
-import com.hacktheheights.models.SearchBar;
-import com.hacktheheights.models.Textbook;
+import models.SearchBar;
+import models.Textbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
