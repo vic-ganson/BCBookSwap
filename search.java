@@ -1,10 +1,10 @@
 import java.util.HashMap;
 import java.util.Map;
-public class SearchBar{
+public class Search{
   private HashMap<Account, List<Textbook> > listedItems;
   private String search;
   
-  public SearchBar(HashMap<Account, List<Textbook> > l, String s){
+  public Search(HashMap<Account, List<Textbook> > l, String s){
     this.listedItems = l;
     this.search = s;
   }
