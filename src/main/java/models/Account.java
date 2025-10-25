@@ -27,7 +27,7 @@ public class Account{
     this.name = n;
   }
   public void setPassword(String p){
-    this.password = s;
+    this.password = p;
   }
 // Overriding methods to avoid issues
   public boolean equals(Object o) {
