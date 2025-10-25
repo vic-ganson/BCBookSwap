@@ -29,4 +29,16 @@ public class Account{
   public void setPassword(String p){
     this.password = p;
   }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Account)) return false;
+    Account other = (Account) o;
+    return (Objects.equals(this.email, o.email) && Objects.equals(this.password, o.password));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 }
