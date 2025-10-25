@@ -1,1 +1,22 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="loginForm">
+        <form id="loginForm">
+            <input type="text" id="loginUsername" name="username" placeholder="Username">
+            <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+            <span class="showPass" onclick="toggleVisible()">
+                <img src="eye.png" alt="Show Password">
+            </span>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
