@@ -1,3 +1,4 @@
+package models;
 import java.util.*;
 public class Search{
   private HashMap<Account, List<Textbook> > listedItems;
