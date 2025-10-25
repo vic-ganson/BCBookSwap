@@ -1,4 +1,4 @@
-package com/hacktheheights/models;
+package com.hacktheheights.models;
 import java.util.*;
 public class Search{
   private HashMap<Account, List<Textbook> > listedItems;
