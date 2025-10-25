@@ -43,7 +43,7 @@ public class ListingsController {
         Account seller = new Account(sellerId);
         List<Textbook> sellerBooks = listings.getListingsBySeller(seller);
         for (Textbook t : sellerBooks) {
-            if (t.getCode().equals(code)) {
+            if (t.getCourseCode().equals(code)) {
                 listings.removeListing(seller, t);
                 break;
             }
