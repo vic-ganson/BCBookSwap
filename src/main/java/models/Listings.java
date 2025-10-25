@@ -1,5 +1,5 @@
-import java.util.*;
 package models;
+import java.util.*;
 
 public class Listings {
 
