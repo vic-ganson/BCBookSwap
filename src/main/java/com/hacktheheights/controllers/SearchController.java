@@ -1,5 +1,5 @@
 package com.hacktheheights.controllers;
-import models.Account;
+import com.hacktheheights.models.Account;
 import models.Search;
 import models.Textbook;
 import org.springframework.stereotype.Controller;
