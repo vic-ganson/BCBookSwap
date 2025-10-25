@@ -12,7 +12,7 @@ import java.util.*;
 @Controller
 public class SearchController {
 
-    private final Search searchBar = new Search(); // your existing search logic
+    private final Search searchBar = new Search(new HashMap<>()); // your existing search logic
 
     @GetMapping("/")
     public String home() {
@@ -21,9 +21,9 @@ public class SearchController {
 
     @GetMapping("/search")
     public String search(@RequestParam(name="q", required=false) String query, Model model) {
-        List<Textbook> results = searchBar.search(query);
+        HashMap<Account, List<Textbook>> results = searchBar.searchResults(query);
         model.addAttribute("results", results);
         model.addAttribute("query", query);
-        return "search"; // renders templates/search.html
+        return "search";
     }
 }
