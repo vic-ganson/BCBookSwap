@@ -1,8 +1,8 @@
-package com.hacktheheights.controllers;
+package controllers;
 
-import com.hacktheheights.models.Listings;
-import com.hacktheheights.models.Textbook;
-import com.hacktheheights.models.Account;
+import models.Listings;
+import models.Textbook;
+import models.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
