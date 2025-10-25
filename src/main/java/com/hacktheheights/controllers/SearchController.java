@@ -12,11 +12,11 @@ import java.util.*;
 @Controller
 public class SearchController {
 
-    private final Search searchBar = new Search(new HashMap<>()); // your existing search logic
+    private final Search searchBar = new Search(new HashMap<>()); 
 
     @GetMapping("/")
     public String home() {
-        return "index"; // renders templates/index.html
+        return "login"; 
     }
 
     @GetMapping("/search")
