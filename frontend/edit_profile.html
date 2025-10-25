@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile | BC Textbook Exchange</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:'Inter',sans-serif; background:#f5f6fa; display:flex; height:100vh; }
+    .layout { display:flex; width:100%; }
+    .sidebar { width:220px; background:linear-gradient(180deg,#8b0000,#a83232); color:white; padding:2rem 1rem; display:flex; flex-direction:column; align-items:center; border-top-right-radius:20px; border-bottom-right-radius:20px; }
+    .sidebar .logo { font-size:1.5rem; font-weight:700; text-align:center; margin-bottom:3rem; line-height:1.2; }
+    .sidebar nav { display:flex; flex-direction:column; width:100%; gap:1rem; }
+    .sidebar nav a { color:white; text-decoration:none; font-weight:600; padding:0.75rem 1rem; border-radius:10px; transition: background 0.3s ease; }
+    .sidebar nav a:hover, .sidebar nav a.active { background: rgba(255,255,255,0.2); }
+    .main-content { flex:1; padding:2rem; overflow-y:auto; }
+    header h1 { color:#8b0000; margin-bottom:0.3rem; }
+    header p { color:#444; margin-bottom:2rem; }
+    form { background:white; padding:2rem; border-radius:20px; box-shadow:0 4px 10px rgba(0,0,0,0.1); max-width:700px; margin:auto; display:flex; flex-direction:column; gap:1.2rem; }
+    label { font-weight:600; margin-bottom:0.4rem; display:block; color:#8b0000; }
+    input[type=text], input[type=password] { width:100%; padding:0.9rem; border-radius:10px; border:1px solid #ccc; font-size:1rem; outline:none; transition:border 0.2s ease, box-shadow 0.2s ease; }
+    input:focus { border-color:#8b0000; box-shadow:0 0 5px rgba(139,0,0,0.3); }
+    button { background:#8b0000; color:white; border:none; border-radius:10px; padding:0.9rem; font-weight:600; cursor:pointer; transition:background 0.2s ease, transform 0.2s ease; }
+    button:hover { background:#a83232; transform:translateY(-2px); }
+    @media(max-width:800px){ .layout{flex-direction:column;} .sidebar{flex-direction:row;width:100%;border-radius:0;justify-content:space-around;padding:1rem;} .sidebar nav{flex-direction:row;gap:0.5rem;} form{width:90%;} }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">BC<br>Exchange</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="sell.html">Sell a Book</a>
+        <a href="account.html" class="active">My Profile</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <header>
+        <h1>Edit Profile</h1>
+        <p>Update your account details below.</p>
+      </header>
+
+      <form id="editForm">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" value="John Smith" required>
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input type="text" id="email" value="smithjo@bc.edu" readonly>
+        </div>
+
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter new password">
+        </div>
+
+        <div>
+          <label for="bcid">BC ID</label>
+          <input type="text" id="bcid" value="002345678" required>
+        </div>
+
+        <div>
+          <label for="member">Member Since</label>
+          <input type="text" id="member" value="September 2025" required>
+        </div>
+
+        <button type="submit">Save Changes</button>
+        <button type="button" onclick="window.location.href='account.html'">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('editForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('Profile updated successfully!');
+      window.location.href = 'account.html';
+    });
+  </script>
+</body>
+</html>
