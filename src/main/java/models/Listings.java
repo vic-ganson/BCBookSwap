@@ -11,14 +11,7 @@ public class Listings {
   }
 
   public void addListing(Account seller, String code, String title, String author, String ISBN, String price, String condition) {
-    double parsedPrice = 0.0;
-    try {
-      parsedPrice = Double.parseDouble(price);
-    } catch (NumberFormatException e) {
-      System.out.println("Invalid price format for " + title + ": " + price);
-    }
-
-    Textbook book = new Textbook(seller, code, title, author, ISBN, parsedPrice, condition);
+    Textbook book = new Textbook(seller, code, title, author, ISBN, price, condition);
     List<Textbook> sellerBooks = listings.getOrDefault(seller, new ArrayList<>());
     sellerBooks.add(book);
     listings.put(seller, sellerBooks);
