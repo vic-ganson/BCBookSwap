@@ -4,7 +4,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #fff; /* optional: sets background */
+    background-color: #fff;
 }
 
 /*Login form styling*/
