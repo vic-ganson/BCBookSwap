@@ -18,6 +18,10 @@ public class SearchController {
     public String home() {
         return "login"; 
     }
+    @GetMapping("/createAccount")
+    public String home() {
+        return "createAccount"; 
+    }
 
     @GetMapping("/search")
     public String search(@RequestParam(name="q", required=false) String query, Model model) {
