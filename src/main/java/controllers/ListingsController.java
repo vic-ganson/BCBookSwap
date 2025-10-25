@@ -29,7 +29,7 @@ public class ListingsController {
                              @RequestParam String title,
                              @RequestParam String author,
                              @RequestParam String ISBN,
-                             @RequestParam String price,
+                             @RequestParam double price,
                              @RequestParam String condition) {
 
         Account seller = new Account(sellerId);
