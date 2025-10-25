@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 public class Search{
   private HashMap<Account, List<Textbook> > listedItems;
   private String search;
