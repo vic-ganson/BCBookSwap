@@ -31,6 +31,17 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.createAccountForm {
+    font-size: 16px;
+    text-align: center;
+    width: 400px;
+    border-radius: 5px;
+    background-color: #D3D3D3;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 /*username*/
 input[type=text] {
     font-size: 16px;
@@ -82,7 +93,7 @@ input[type=submit]:hover {
 .showPass {
     position: absolute;
     right: 28px;
-    top: 33.5%;
+    top: 31%;
     cursor: pointer;
     width: 24px;
     height: 24px;
@@ -91,7 +102,7 @@ input[type=submit]:hover {
 .showPass2 {
     position: absolute;
     right: 28px;
-    top: 54%;
+    top: 49.5%;
     cursor: pointer;
     width: 24px;
     height: 24px;
