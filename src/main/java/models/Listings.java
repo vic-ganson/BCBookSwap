@@ -1,7 +1,5 @@
 package models;
-
 import java.util.*;
-
 public class Listings {
 
   private HashMap<Account, List<Textbook>> listings;
@@ -30,7 +28,7 @@ public class Listings {
   }
 
   public List<Textbook> getListingsBySeller(Account seller) {
-    return listings.getOrDefault(seller, new ArrayList<>());
+    return listings.computeIfAbsent(seller, k -> new ArrayList<>());
   }
 
   public HashMap<Account, List<Textbook>> getAllListings() {
