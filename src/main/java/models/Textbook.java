@@ -25,10 +25,10 @@ public class Textbook {
   public String getAuthor() {return author;}
   public String getISBN() {return ISBN;}
   public double getPrice() {return price;}
-  public String getSeller() {return seller;}
+  public Account getSeller() {return seller;}
   
 // Allows for price changes
-  public void setPrice(double p) { this.price = price;}
+  public void setPrice(double p) { this.price = p;}
 
   public String toString() {
     return String.format("%s - %s by %s (ISBN: %s) $%.2f", courseCode, title, author, isbn, price);
