@@ -21,6 +21,7 @@ public class Textbook {
   public String getAuthor() {return author;}
   public String getISBN() {return ISBN;}
   public double getPrice() {return price;}
+  public String getSeller() {return seller;}
   
 // Allows for price changes
   public void setPrice(double p) { this.price = price;}
