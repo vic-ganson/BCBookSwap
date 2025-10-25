@@ -1,0 +1,116 @@
+/*center form*/
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fff;
+}
+
+/*floating header*/
+.floatingHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #a83232;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    z-index: 1000;
+}
+/*Login form styling*/
+.loginForm {
+    font-size: 16px;
+    text-align: center;
+    width: 400px;
+    border-radius: 5px;
+    background-color: #D3D3D3;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/*username*/
+input[type=text] {
+    font-size: 16px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+/*password*/
+input[type=password] {
+    font-size: 16px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+/*login button*/
+input[type=submit] {
+    margin: 12px 0;
+    text-align: center;
+    background-color: #a83232;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/*login hovering*/
+input[type=submit]:hover {
+    background-color: white;
+    color: #a83232;
+    border: 2px solid #a83232;
+}
+
+/*show password*/
+.showPass {
+    position: absolute;
+    right: 28px;
+    top: 33.5%;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+/*show password2*/
+.showPass2 {
+    position: absolute;
+    right: 28px;
+    top: 54%;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+/*create acc button*/
+.loginButton {
+    display: inline-block;
+    margin: 10px auto 0 auto;
+    color: #36454F;
+    text-decoration: underline;
+    font-size: 14px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.loginButton:hover {
+    color: #a83232;
+    text-decoration: none;
+}
