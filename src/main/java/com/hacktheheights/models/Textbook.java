@@ -1,4 +1,4 @@
-package models;
+package com/hacktheheights/models;
 
 public class Textbook {
   private Account seller;
