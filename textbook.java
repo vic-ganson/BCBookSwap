@@ -1,18 +1,20 @@
 public class Textbook {
+  private String seller;
   private String courseCode;
   private String title;
   private String author;
   private String ISBN;
   private double price;
-  private String seller;
+  private String condition;
 
-  public Textbook (c, t, a, i, p, s){
-    this.courseCode = c;
+  public Textbook (s, code, t, a, i, p, cond){
+    this.seller = s;
+    this.courseCode = code;
     this.title = t;
     this.author = a;
     this.ISBN = i;
     this.price = p;
-    this.seller = s;
+    this.condition = cond;
   }
   
 // Accessors
