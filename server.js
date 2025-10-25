@@ -36,7 +36,7 @@ app.get('/users', (req, res) => {
 
 // Fallback route for unmatched paths (optional)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+  res.sendFile(path.join(__dirname, 'frontend', 'login.html'));
 });
 
 // ----------------------
