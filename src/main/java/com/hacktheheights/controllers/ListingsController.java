@@ -1,4 +1,4 @@
-package controllers;
+package com/hacktheheights/controllers;
 
 import models.Listings;
 import models.Textbook;
