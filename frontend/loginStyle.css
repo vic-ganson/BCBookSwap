@@ -7,13 +7,25 @@ body {
     background-color: #fff;
 }
 
+/*floating header*/
+.floatingHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #a83232;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    z-index: 1000;
+}
 /*Login form styling*/
 .loginForm {
-    font-size: 36px;
+    font-size: 16px;
     text-align: center;
     width: 400px;
     border-radius: 5px;
-    background-color: #f2f2f2;
+    background-color: #D3D3D3;
     padding: 20px;
     position: relative;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -45,7 +57,7 @@ input[type=password] {
 input[type=submit] {
     margin: 12px 0;
     text-align: center;
-    background-color: #04AA6D;
+    background-color: #a83232;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -62,17 +74,34 @@ input[type=submit] {
 /*login hovering*/
 input[type=submit]:hover {
     background-color: white;
-    color: #04AA6D;
-    border: 2px solid #04AA6D;
+    color: #a83232;
+    border: 2px solid #a83232;
 }
 
 /*show password*/
 .showPass {
     position: absolute;
-    right: 20px;
+    right: 28px;
     top: 38%;
     cursor: pointer;
     width: 24px;
     height: 24px;
 }
 
+/*create acc button*/
+.createAccountButton {
+    display: inline-block;
+    margin: 10px auto 0 auto;
+    color: #36454F;
+    text-decoration: underline;
+    font-size: 14px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.createAccountButton:hover {
+    color: #a83232;
+    text-decoration: none;
+}
