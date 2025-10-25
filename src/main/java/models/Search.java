@@ -15,8 +15,8 @@ public class Search{
         if (t.getCourseCode().contains(query) || t.getTitle().contains(query) || t.getAuthor().contains(query) || t.getISBN().contains(query)){
           books.add(t);
         }
-        results.put(a, books);
       }
+      results.put(a, books);
     }
     return results;
   }
