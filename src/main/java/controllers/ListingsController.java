@@ -16,27 +16,30 @@ public class ListingsController {
     private final Listings listings = new Listings();
 
     @GetMapping("/{sellerId}")
-    public String getSellerListings(@PathVariable Account seller, Model model) {
+    public String getSellerListings(@PathVariable String name, String email, String password, Model model) {
+        Account seller = new Account(name, email, password);
         List<Textbook> books = listings.getListingsBySeller(seller);
         model.addAttribute("books", books);
         return "sellerListings"; // template: sellerListings.html
     }
 
     @PostMapping("/add")
-    public String addListing(@RequestParam Account seller,
+    public String addListing(@RequestParam String name, String email, String password,
                              @RequestParam String code,
                              @RequestParam String title,
                              @RequestParam String author,
                              @RequestParam String ISBN,
                              @RequestParam double price,
                              @RequestParam String condition) {
+        Account seller = new Account(name, email, password);
         listings.addListing(seller, code, title, author, ISBN, price, condition);
         return "redirect:/listings/" + seller.getEmail();
     }
 
     @PostMapping("/remove")
-    public String removeListing(@RequestParam Account seller,
+    public String removeListing(@RequestParam String name, String email, String password,
                                 @RequestParam String code) {
+        Account seller = new Account(name, email, password);
         List<Textbook> sellerBooks = listings.getListingsBySeller(seller);
         for (Textbook t : sellerBooks) {
             if (t.getCourseCode().equals(code)) {
@@ -48,7 +51,8 @@ public class ListingsController {
     }
 
     @PostMapping("/removeSeller")
-    public String removeSeller(@RequestParam Account seller) {
+    public String removeSeller(@RequestParam String name, String email, String password) {
+        Account seller = new Account(name, email, password);
         listings.removeSeller(seller);
         return "redirect:/";
     }
