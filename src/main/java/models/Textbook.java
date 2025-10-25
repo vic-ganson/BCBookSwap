@@ -1,3 +1,5 @@
+package models;
+
 public class Textbook {
   private Account seller;
   private String courseCode;
