@@ -30,7 +30,7 @@ try{
       alert("You must login with a Boston College email address (@bc.edu)");
     } else {
       //check usernames etc
-      window.location.href = "index.html";
+      window.location.href = "/index";
       let usernameEntry = document.getElementById('loginUsername').value;
       let passwordEntry = document.getElementById('loginPassword').value;
     }
