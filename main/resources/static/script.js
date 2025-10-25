@@ -30,6 +30,7 @@ try{
       alert("You must login with a Boston College email address (@bc.edu)");
     } else {
       //check usernames etc
+      window.location.href = "index.html";
       let usernameEntry = document.getElementById('loginUsername').value;
       let passwordEntry = document.getElementById('loginPassword').value;
     }
@@ -47,11 +48,12 @@ try{
     if(!validEmail()){
       alert("You must login with a Boston College email address (@bc.edu)");
     } else {
-      if(passwordEntry != passwordEntry2){
-      alert("Your password entries must match.")
-    } else {
-      //save account
-    }
+        if(passwordEntry != passwordEntry2){
+        alert("Your password entries must match.")
+      } else {
+        //save account
+        window.location.href = "index.html";
+      }
     }
   });
 } catch(e){}
