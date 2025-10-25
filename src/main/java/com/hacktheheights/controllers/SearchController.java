@@ -18,9 +18,9 @@ public class SearchController {
     public String home() {
         return "login"; 
     }
-    @GetMapping("/createAccount")
+    @GetMapping("/index")
     public String home() {
-        return "createAccount"; 
+        return "index"; 
     }
 
     @GetMapping("/search")
