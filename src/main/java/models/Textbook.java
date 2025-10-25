@@ -7,7 +7,7 @@ public class Textbook {
   private double price;
   private String condition;
 
-  public Textbook (Account s, String code, String t, String a, String i, doulbe p, String cond){
+  public Textbook (Account s, String code, String t, String a, String i, double p, String cond){
     this.seller = s;
     this.courseCode = code;
     this.title = t;
