@@ -1,1 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sell a Book | BC Textbook Exchange</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f6fa;
+      color: #222;
+      display: flex;
+      height: 100vh;
+    }
+
+    .layout {
+      display: flex;
+      width: 100%;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(180deg, #8b0000, #a83232);
+      color: white;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .sidebar .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      line-height: 1.2;
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 1rem;
+    }
+
+    .sidebar nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    header h1 {
+      color: #8b0000;
+      margin-bottom: 0.3rem;
+    }
+
+    header p {
+      color: #444;
+      margin-bottom: 2rem;
+    }
+
+    /* FORM */
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      display: block;
+      color: #8b0000;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #8b0000;
+      box-shadow: 0 0 5px rgba(139,0,0,0.3);
+    }
+
+    textarea {
+     resize: vertical;
+     min-height: 100px;
+     font-family: 'Inter', sans-serif;
+     font-size: 1rem;
+     color: #222;
+   }
+
+    button {
+      background: #8b0000;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #a83232;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        width: 100%;
+        border-radius: 0;
+        justify-content: space-around;
+        padding: 1rem;
+      }
+
+      .sidebar nav {
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+
+      form {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">📚<br>BC<br>Exchange</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="sell.html" class="active">Sell a Book</a>
+        <a href="account.html">My Profile</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <header>
+        <h1>Sell a Book</h1>
+        <p>Fill out the form below to list your book for sale.</p>
+      </header>
+
+      <form>
+        <div>
+          <label for="title">Book Title</label>
+          <input type="text" id="title" name="title" placeholder="e.g., Principles of Economics" required>
+        </div>
+
+        <div>
+          <label for="course">Course Code </label>
+          <input type="text" id="course" name="course" placeholder="e.g., ECON1101">
+        </div>
+
+        <div>
+          <label for="condition">Condition</label>
+          <select id="condition" name="condition" required>
+            <option value="">Select condition</option>
+            <option value="Like New">Like New</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="price">Price ($)</label>
+          <input type="number" id="price" name="price" min="1" required>
+        </div>
+
+
+        <div>
+          <label for="description">Description</label>
+          <textarea id="description" name="description" placeholder="Add any extra details about the book..."></textarea>
+        </div>
+
+        <button type="submit">List My Book</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
