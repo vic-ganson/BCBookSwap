@@ -29,14 +29,4 @@ public class Account{
   public void setPassword(String p){
     this.password = p;
   }
-// Overriding methods to avoid issues
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Account)) return false;
-    Account other = (Account) o;
-    return Objects.equals(this.id, other.id); // or use username, email, etc.
-  }
-  public int hashCode() {
-    return Objects.hash(id); // or same field you used above
-  }
 }
