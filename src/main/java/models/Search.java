@@ -9,7 +9,7 @@ public class Search{
     this.search = s;
   }
 
-  public HashMap<> searchResults(String query){
+  public HashMap<Account, List<Textbook> > searchResults(String query){
     Map<String, List<Textbook> > results = new HashMap<>();
     for (Account a : listedItems){
       List<Textbook> books = new List<>();
