@@ -60,21 +60,46 @@ public class ListingsController {
 
     @PostMapping("/remove")
     @ResponseBody
-    public Map<String, String> removeListing(@RequestParam Long sellerId, @RequestParam String code) {
-        Account seller = accountRepo.findById(sellerId).orElse(null);
-        if (seller == null) {
-            return Map.of("status", "error", "message", "Seller not found");
-        }
-    
-        List<Listing> sellerBooks = listingRepo.findBySeller(seller);
-        for (Listing t : sellerBooks) {
-            if (t.getCourseCode().equals(code)) {
-                listingRepo.delete(t);
-                return Map.of("status", "success", "message", "Listing removed");
+    public String removeListing(@RequestParam Long sellerId, @RequestParam String code) {
+        List<Account> allAccounts = accountRepo.findAll();
+        Account seller = null;
+        for (Account acc : allAccounts) {
+            if (acc.getId().equals(sellerId)) {
+                seller = acc;
+                break;
             }
         }
     
-        return Map.of("status", "error", "message", "Listing not found");
+        if (seller == null) {
+            System.out.println("seller not found : " + sellerId);
+            return "Seller not found";
+        }
+    
+        List<Textbook> sellerBooks = listings.getListingsBySeller(seller);
+        if (sellerBooks == null || sellerBooks.isEmpty()) {
+            System.out.println("no listings found");
+            return "No listings found for this seller";
+        }
+    
+        boolean removed = false;
+        Iterator<Textbook> iterator = sellerBooks.iterator();
+        while (iterator.hasNext()) {
+            Textbook t = iterator.next();
+            if (t.getCourseCode().equalsIgnoreCase(code)) {
+                iterator.remove();
+                removed = true;
+                System.out.println("removed: " + t.getTitle() + " (" + t.getCourseCode() + ")");
+                break;
+            }
+        }
+    
+        if (!removed) {
+            return "Listing not found";
+        }
+    
+        listings.getAll().put(seller, sellerBooks);
+    
+        return "Listing successfully removed";
     }
 
 
