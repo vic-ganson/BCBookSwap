@@ -60,12 +60,10 @@
       height: 100vh;
     }
 
-
     .layout {
       display: flex;
       width: 100%;
     }
-
 
     .sidebar {
       width: 220px;
@@ -108,7 +106,6 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
-
     .main-content {
       flex: 1;
       padding: 2rem;
@@ -123,7 +120,6 @@
       color: #8b0000;
       margin-bottom: 0.3rem;
     }
-
 
     .hero {
       background: linear-gradient(120deg, #fff3cd, #ffeeba);
@@ -145,7 +141,6 @@
       color: #444;
       margin-bottom: 1.5rem;
     }
-
 
     .search-bar {
       display: flex;
@@ -207,7 +202,6 @@
       font-size: 0.9rem;
       border-radius: 8px;
     }
-
 
     .listings h2 {
       color: #8b0000;
@@ -329,7 +323,6 @@
           <h2>Save money. Stay local. Help other Eagles.</h2>
           <p>Find the books you need this semester.</p>
 
-          <!-- SEARCH BAR (now functional but same design) -->
           <form id="searchForm" class="search-bar">
             <input type="text" id="search" placeholder="Search for textbooks, authors, or courses..." required>
           </form>
@@ -342,44 +335,17 @@
 
       <section class="listings">
         <h2>Recent Listings</h2>
-        <div class="book-list">
-          <div class="book-card">
-            <div class="book-info">
-              <h3>Econ 1101 - Introduction to Econ</h3>
-              <p class="price">$15 · Fair Condition</p>
-              <p>Cengage Ultimate Textbook</p>
-            </div>
-            <button class="btn small">Contact Seller</button>
-          </div>
-
-          <div class="book-card">
-            <div class="book-info">
-              <h3>Econ 1101 - Introduction to Econ</h3>
-              <p class="price">$15 · Fair Condition</p>
-              <p>Cengage Ultimate Textbook</p>
-            </div>
-            <button class="btn small">Contact Seller</button>
-          </div>
-
-          <div class="book-card">
-            <div class="book-info">
-              <h3>Econ 1101 - Introduction to Econ</h3>
-              <p class="price">$15 · Fair Condition</p>
-              <p>Cengage Ultimate Textbook</p>
-            </div>
-            <button class="btn small">Contact Seller</button>
-          </div>
+        <div class="book-list" id="bookList">
+          <p>Loading recent listings...</p>
         </div>
       </section>
 
-      <footer>
-
-      </footer>
+      <footer></footer>
     </div>
   </div>
 
-  <!-- ADDED SCRIPT (keeps your style & behavior unchanged) -->
   <script>
+    // Redirect search
     const searchForm = document.getElementById('searchForm');
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -388,6 +354,44 @@
         window.location.href = `/buy.html?query=${encodeURIComponent(query)}`;
       }
     });
+
+    // Load recent listings
+    async function loadRecentListings() {
+      const listContainer = document.getElementById('bookList');
+      listContainer.innerHTML = "<p>Loading recent listings...</p>";
+
+      try {
+        const response = await fetch('/listings/all');
+        const listings = await response.json();
+
+        if (!listings || listings.length === 0) {
+          listContainer.innerHTML = "<p>No listings available.</p>";
+          return;
+        }
+
+        listContainer.innerHTML = '';
+
+        listings.forEach(book => {
+          const card = document.createElement('div');
+          card.classList.add('book-card');
+          card.innerHTML = `
+            <div class="book-info">
+              <h3>${book.courseCode} - ${book.title}</h3>
+              <p class="price">$${book.price} · ${book.condition} Condition</p>
+              <p>${book.author}</p>
+            </div>
+            <button class="btn small">Contact Seller</button>
+          `;
+          listContainer.appendChild(card);
+        });
+
+      } catch (error) {
+        listContainer.innerHTML = "<p>Error loading listings.</p>";
+        console.error(error);
+      }
+    }
+
+    loadRecentListings();
   </script>
 </body>
 </html>
