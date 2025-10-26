@@ -13,8 +13,13 @@ import java.util.*;
 @RequestMapping("/listings")
 public class ListingsController {
 
+    private final AccountRepository accountRepo;
     private final Listings listings = new Listings();
 
+    public ListingsController(AccountRepository accountRepo) {
+        this.accountRepo = accountRepo;
+    }
+    
     @GetMapping("/{sellerId}")
     public String getSellerListings(@PathVariable Long sellerId, Model model) {
         List<Account> allAccounts = accountRepo.findAll();
