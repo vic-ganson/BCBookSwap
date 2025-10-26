@@ -150,13 +150,34 @@
             <p><strong>Course:</strong> ${book.courseCode}</p>
             <p><strong>Condition:</strong> ${book.condition}</p>
             <p><strong>Price:</strong> $${book.price}</p>
-            <button onclick="showSellerInfo('${book.sellerEmail}', '${book.title}')">Buy Now</button>
+            <button onclick="buyBook('${book.title}', '${book.courseCode}', '${book.sellerId}', '${book.sellerEmail}')">Buy Now</button>
           `;
           container.appendChild(card);
         });
       } catch (error) {
         console.error(error);
         container.innerHTML = "<p>Error loading books. Please try again later.</p>";
+      }
+    }
+
+    // Handle buying a book (remove listing + show seller info)
+    async function buyBook(title, code, sellerId, email) {
+      try {
+        // 1️⃣ Remove the listing from backend
+        await fetch('/listings/remove', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            sellerId: sellerId,
+            code: code
+          })
+        });
+
+        // 2️⃣ Then show contact popup
+        showSellerInfo(email, title);
+      } catch (error) {
+        alert("Error completing purchase. Please try again.");
+        console.error(error);
       }
     }
 
