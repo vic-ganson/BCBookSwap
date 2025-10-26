@@ -23,35 +23,38 @@ function validEmail(){
 
 
 //ON LOGIN FORM SUBMIT
-try{
+// LOGIN FORM SUBMIT
+try {
   document.getElementById("loginForm").addEventListener("submit", async function(event) {
       event.preventDefault();
-      if(!validEmail()){
+      if (!validEmail()) {
           alert("You must login with a Boston College email address (@bc.edu)");
           return;
       }
-  
-      let usernameEntry = document.getElementById('loginUsername').value;
-      let passwordEntry = document.getElementById('loginPassword').value;
-  
-      try { //send username and pass to backend
+
+      const usernameEntry = document.getElementById('loginUsername').value;
+      const passwordEntry = document.getElementById('loginPassword').value;
+
+      try {
           const resp = await fetch('/api/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email: usernameEntry, password: passwordEntry })
           });
-  
-          if(resp.ok){
-              window.location.href = "/index";
+
+          if (resp.ok) {
+              // STORE EMAIL FOR OTHER PAGES
+              localStorage.setItem('loggedInEmail', usernameEntry);
+              window.location.href = "/index"; // redirect after login
           } else {
               alert("Invalid login");
           }
-      } catch(e){
+      } catch (e) {
           alert("Server error");
           console.error(e);
       }
   });
-} catch(e){}
+} catch(e) {}
 
 
 //ON CREATE ACCOUNT FORM SUBMIT
