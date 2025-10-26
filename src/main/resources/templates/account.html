@@ -34,9 +34,9 @@
     <aside class="sidebar">
       <div class="logo">BC<br>Exchange</div>
       <nav>
-        <a href="index.html">Home</a>
-        <a href="sell.html">Sell a Book</a>
-        <a href="account.html" class="active">My Profile</a>
+        <a href="/index">Home</a>
+        <a href="/sell">Sell a Book</a>
+        <a href="/account" class="active">My Profile</a>
       </nav>
     </aside>
 
@@ -54,7 +54,7 @@
         </div>
 
         <div class="profile-actions">
-          <button onclick="window.location.href='edit_profile.html'">Edit Profile</button>
+          <button onclick="window.location.href='/edit_profile'">Edit Profile</button>
           <button id="logoutBtn">Log Out</button>
         </div>
       </div>
@@ -63,7 +63,7 @@
 
   <script>
     document.getElementById('logoutBtn').addEventListener('click', () => {
-      window.location.href = 'login.html';
+      window.location.href = '/login';
     });
   </script>
 </body>
