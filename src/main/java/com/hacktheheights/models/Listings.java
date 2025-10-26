@@ -31,7 +31,7 @@ public class Listings {
     return listings.computeIfAbsent(seller, k -> new ArrayList<>());
   }
 
-  public HashMap<Account, List<Textbook>> getAllListings() {
+  public HashMap<Account, List<Textbook>> getAll() {
     return listings;
   }
 }
