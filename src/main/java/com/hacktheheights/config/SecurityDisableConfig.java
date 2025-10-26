@@ -12,8 +12,8 @@ public class SecurityDisableConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable() // optional, allows POST requests from JS
-            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll()); // allow all pages
+        http.csrf().disable()
+            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         return http.build();
     }
 
