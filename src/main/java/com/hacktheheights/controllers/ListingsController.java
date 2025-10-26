@@ -61,7 +61,7 @@ public class ListingsController {
             }
         }
         listings.addListing(seller, code, title, author, ISBN, price, condition);
-        return "redirect:/listings/" + seller.getEmail();
+        return "redirect:/listings/" + seller.getId();
     }
 
     @PostMapping("/remove")
@@ -81,7 +81,7 @@ public class ListingsController {
                 break;
             }
         }
-        return "redirect:/listings/" + seller.getEmail();
+        return "redirect:/listings/" + seller.getId();
     }
 
     @PostMapping("/removeSeller")
