@@ -16,8 +16,14 @@ public class ListingsController {
     private final Listings listings = new Listings();
 
     @GetMapping("/{sellerId}")
-    public String getSellerListings(@PathVariable String name, String email, String password, Model model) {
-        Account seller = new Account(name, email, password);
+    public String getSellerListings(@PathVariable Long id, Model model) {
+        List<Account> allAccounts = accountRepo.findAll();
+        for (Account acc : allAccounts){
+            if (acc.getId() == id){
+                Account seller = acc;
+                break;
+            }
+        }
         List<Textbook> books = listings.getListingsBySeller(seller);
         model.addAttribute("books", books);
         return "sellerListings"; // template: sellerListings.html
