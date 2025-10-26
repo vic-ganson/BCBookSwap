@@ -23,6 +23,17 @@ public class ListingsController {
         return "sellerListings"; // template: sellerListings.html
     }
 
+    @GetMapping("/all")
+    @ResponseBody
+    public List<Textbook> getAllListings() {
+        List<Textbook> all = new ArrayList<>();
+        Map<Account, List<Textbook>> data = listings.getAll();
+        for (List<Textbook> sellerBooks : data.values()) {
+            all.addAll(sellerBooks);
+        }
+        return all;
+    }
+
     @PostMapping("/add")
     public String addListing(@RequestParam String name, String email, String password,
                              @RequestParam String code,
