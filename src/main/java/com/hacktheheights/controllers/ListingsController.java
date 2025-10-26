@@ -59,10 +59,32 @@ public class ListingsController {
     }
 
     @PostMapping("/remove")
-    public String removeListing(@RequestParam Long listingId) {
-        listingRepo.deleteById(listingId);
-        return "redirect:/";
+    @ResponseBody
+    public Map<String, String> removeListing(@RequestParam Long sellerId, @RequestParam String code) {
+        List<Account> allAccounts = accountRepo.findAll();
+        Account seller = null;
+        for (Account acc : allAccounts) {
+            if (acc.getId().equals(sellerId)) {
+                seller = acc;
+                break;
+            }
+        }
+    
+        if (seller == null) {
+            return Map.of("status", "error", "message", "Seller not found");
+        }
+    
+        List<Textbook> sellerBooks = listings.getListingsBySeller(seller);
+        for (Textbook t : sellerBooks) {
+            if (t.getCourseCode().equals(code)) {
+                listings.removeListing(seller, t);
+                return Map.of("status", "success", "message", "Listing removed");
+            }
+        }
+    
+        return Map.of("status", "error", "message", "Listing not found");
     }
+
 
     @GetMapping("/search")
     @ResponseBody
