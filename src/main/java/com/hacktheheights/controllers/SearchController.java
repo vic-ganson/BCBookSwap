@@ -44,6 +44,11 @@ public class SearchController {
     public String editProfile() {
         return "edit_profile"; 
     }
+    //buy Page
+    @GetMapping("/buy")
+    public String buy() {
+        return "buy"; 
+    }
     
     @GetMapping("/search")
     public String search(@RequestParam(name="q", required=false) String query, Model model) {
