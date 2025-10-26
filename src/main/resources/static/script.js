@@ -42,7 +42,7 @@ try{
           });
   
           if(resp.ok){
-              window.location.href = "/index.html"; // login success
+              window.location.href = "/index";
           } else {
               alert("Invalid login");
           }
@@ -81,8 +81,7 @@ try{
         });
 
         if(resp.ok){
-            alert("Account created!");
-            window.location.href = "/login.html"; // send to login page
+            window.location.href = "/index";
         } else {
             const msg = await resp.text();
             alert(msg);
