@@ -14,15 +14,37 @@ public class SearchController {
 
     private final Search searchBar = new Search(new HashMap<>()); 
 
+    //Login Page
     @GetMapping("/")
     public String home() {
         return "login"; 
     }
+    //Listings Page
     @GetMapping("/index")
     public String listings() {
         return "index"; 
     }
-
+    //Create Account Page
+    @GetMapping("/createAccount")
+    public String createAccount() {
+        return "createAccount"; 
+    }
+    //My Profile Page
+    @GetMapping("/account")
+    public String account() {
+        return "account"; 
+    }
+    //Sell Book Page
+    @GetMapping("/sell")
+    public String sell() {
+        return "sell"; 
+    }
+    //edit profile Page
+    @GetMapping("/edit_profile")
+    public String editProfile() {
+        return "edit_profile"; 
+    }
+    
     @GetMapping("/search")
     public String search(@RequestParam(name="q", required=false) String query, Model model) {
         HashMap<Account, List<Textbook>> results = searchBar.searchResults(query);
