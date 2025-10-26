@@ -8,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/listings")
@@ -76,7 +80,7 @@ public class ListingsController {
             data.put("price", listing.getPrice());
             data.put("condition", listing.getCondition());
     
-            // ✅ Include seller email so frontend can show it
+            // Include seller email so frontend can show it
             if (listing.getSeller() != null) {
                 data.put("sellerEmail", listing.getSeller().getEmail());
             } else {
