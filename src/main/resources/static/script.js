@@ -57,44 +57,46 @@ try {
 } catch(e) {}
 
 
-//ON CREATE ACCOUNT FORM SUBMIT
-try{
-  document.getElementById("createAccountForm").addEventListener("submit", async function(event){
-    event.preventDefault();
+// CREATE ACCOUNT FORM SUBMIT
+try {
+  document.getElementById("createAccountForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
 
-    if(!validEmail()){
-        alert("You must login with a Boston College email address (@bc.edu)");
-        return;
-    }
+      const usernameEntry = document.getElementById('loginUsername').value;
+      const passwordEntry = document.getElementById('loginPassword').value;
+      const passwordEntry2 = document.getElementById('loginPassword2').value;
 
-    let usernameEntry = document.getElementById('loginUsername').value;
-    let passwordEntry = document.getElementById('loginPassword').value;
-    let passwordEntry2 = document.getElementById('loginPassword2').value;
+      if (!usernameEntry.endsWith("@bc.edu")) {
+          alert("You must create an account with a Boston College email address (@bc.edu)");
+          return;
+      }
 
-    if(passwordEntry != passwordEntry2){
-        alert("Passwords must match");
-        return;
-    }
+      if (passwordEntry !== passwordEntry2) {
+          alert("Passwords must match");
+          return;
+      }
 
-    try {
-        const resp = await fetch('/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: usernameEntry, password: passwordEntry })
-        });
+      try {
+          const resp = await fetch('/api/register', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: usernameEntry, password: passwordEntry })
+          });
 
-        if(resp.ok){
-            window.location.href = "/index";
-        } else {
-            const msg = await resp.text();
-            alert(msg);
-        }
-    } catch(e){
-        alert("Server error");
-        console.error(e);
-    }
+          if (resp.ok) {
+              // STORE EMAIL FOR OTHER PAGES
+              localStorage.setItem('loggedInEmail', usernameEntry);
+              window.location.href = "/index"; // redirect after account creation
+          } else {
+              const msg = await resp.text();
+              alert(msg);
+          }
+      } catch (e) {
+          alert("Server error");
+          console.error(e);
+      }
   });
-} catch(e){}
+} catch(e) {}
 
 
 // create account button from login
