@@ -22,11 +22,7 @@ public class AuthController {
     
     @GetMapping("/me")
     public ResponseEntity<Account> getCurrentUser(@RequestParam String email) {
-        Optional<Account> userOpt = accountRepo.findByEmail(email);
-            if (userOpt.isEmpty()) {
-                return ResponseEntity.status(404).build();
-            }
-        return ResponseEntity.ok(userOpt.get());
+        return accountRepo.findByEmail(email).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     
     @PostMapping("/register")
