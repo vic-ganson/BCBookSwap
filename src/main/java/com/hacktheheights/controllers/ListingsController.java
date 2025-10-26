@@ -18,9 +18,10 @@ public class ListingsController {
     @GetMapping("/{sellerId}")
     public String getSellerListings(@PathVariable Long id, Model model) {
         List<Account> allAccounts = accountRepo.findAll();
+        Account seller = new Account();
         for (Account acc : allAccounts){
             if (acc.getId() == id){
-                Account seller = acc;
+                seller = acc;
                 break;
             }
             Long identification = acc.getId();
@@ -52,9 +53,10 @@ public class ListingsController {
                              @RequestParam double price,
                              @RequestParam String condition) {
         List<Account> allAccounts = accountRepo.findAll();
+        Account seller = new Account();
         for (Account acc : allAccounts){
             if (acc.getId() == id){
-                Account seller = acc;
+                seller = acc;
                 break;
             }
         }
@@ -65,9 +67,10 @@ public class ListingsController {
     @PostMapping("/remove")
     public String removeListing(@RequestParam Long id, @RequestParam String code) {
         List<Account> allAccounts = accountRepo.findAll();
+        Account seller = new Account();
         for (Account acc : allAccounts){
             if (acc.getId() == id){
-                Account seller = acc;
+                seller = acc;
                 break;
             }
         }
@@ -82,8 +85,15 @@ public class ListingsController {
     }
 
     @PostMapping("/removeSeller")
-    public String removeSeller(@RequestParam String name, String email, String password) {
-        Account seller = new Account(name, email, password);
+    public String removeSeller(@RequestParam Long id) {
+        List<Account> allAccounts = accountRepo.findAll();
+        Account seller = new Account();
+        for (Account acc : allAccounts){
+            if (acc.getId() == id){
+                seller = acc;
+                break;
+            }
+        }
         listings.removeSeller(seller);
         return "redirect:/";
     }
