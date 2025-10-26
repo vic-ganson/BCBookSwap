@@ -62,7 +62,31 @@ public class ListingsController {
 
     @GetMapping("/search")
     @ResponseBody
-    public List<Listing> searchListings(@RequestParam String term) {
-        return listingRepo.findByTitleContainingIgnoreCaseOrCourseCodeContainingIgnoreCaseOrAuthorContainingIgnoreCase(term, term, term);
+    public List<Map<String, Object>> searchListings(@RequestParam String term) {
+        List<Listing> results = listingRepo
+            .findByTitleContainingIgnoreCaseOrCourseCodeContainingIgnoreCaseOrAuthorContainingIgnoreCase(term, term, term);
+
+        List<Map<String, Object>> formatted = new ArrayList<>();
+
+        for (Listing listing : results) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("title", listing.getTitle());
+            data.put("author", listing.getAuthor());
+            data.put("courseCode", listing.getCourseCode());
+            data.put("price", listing.getPrice());
+            data.put("condition", listing.getCondition());
+    
+            // ✅ Include seller email so frontend can show it
+            if (listing.getSeller() != null) {
+                data.put("sellerEmail", listing.getSeller().getEmail());
+            } else {
+                data.put("sellerEmail", "Unavailable");
+            }
+    
+            formatted.add(data);
+        }
+    
+        return formatted;
     }
+
 }
