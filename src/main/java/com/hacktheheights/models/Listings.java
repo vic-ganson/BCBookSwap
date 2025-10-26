@@ -34,4 +34,20 @@ public class Listings {
   public HashMap<Account, List<Textbook>> getAll() {
     return listings;
   }
+
+  public List<Textbook> search(String term) {
+    List<Textbook> results = new ArrayList<>();
+    String lower = term.toLowerCase();
+
+    for (List<Textbook> books : listings.values()) {
+        for (Textbook b : books) {
+            if (b.getTitle().toLowerCase().contains(lower) ||
+                b.getCourseCode().toLowerCase().contains(lower) ||
+                b.getAuthor().toLowerCase().contains(lower)) {
+                results.add(b);
+            }
+        }
+    }
+    return results;
+  }
 }
