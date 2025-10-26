@@ -1,32 +1,38 @@
 package com.hacktheheights.models;
-public class Account{
 
-  private String name;
-  private String email;
-  private String password;
+import jakarta.persistence.*;
 
-  public Account(String n, String e, String p){
-    this.name = n;
-    this.email = e;
-    this.password = p;
-  }
+@Entity
+@Table(name = "accounts")
+public class Account {
 
-// Accessor methods
-  public String getName(){
-    return name;
-  }
-  public String getEmail(){
-    return email;
-  }
-  public String getPassword(){
-    return password;
-  }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-// Allows for editing of profile
-  public void setName(String n){
-    this.name = n;
-  }
-  public void setPassword(String p){
-    this.password = p;
-  }
+    private String name;
+
+    @Column(unique = true)
+    private String email;
+
+    private String password;
+
+    public Account() {} // JPA needs a no-arg constructor
+
+    public Account(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Getters
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public String getPassword() { return password; }
+
+    // Setters
+    public void setName(String name) { this.name = name; }
+    public void setEmail(String email) { this.email = email; }
+    public void setPassword(String password) { this.password = password; }
 }
