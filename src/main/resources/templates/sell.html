@@ -243,46 +243,43 @@
   </div>
 
   <script>
-    const form = document.getElementById('sellForm');
-    const popupOverlay = document.getElementById('popupOverlay');
-    const closePopup = document.getElementById('closePopup');
+  const form = document.getElementById('sellForm');
+  const popupOverlay = document.getElementById('popupOverlay');
+  const closePopup = document.getElementById('closePopup');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      let sellerId = null;
-      const email = localStorage.getItem('loggedInEmail');
+  form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-      const resp = await fetch(`/api/me?email=${email}`);
-      if (resp.ok) {
-        const user = await resp.json();
-        sellerId = user.id;
-      } else {
-        alert("Could not get seller ID");
-        return;
-      }
-      const data = new URLSearchParams({
-        sellerId: sellerId,
-        code: document.getElementById('course').value,
-        title: document.getElementById('title').value,
-        author: document.getElementById('author').value,
-        ISBN: document.getElementById('isbn').value,
-        price: document.getElementById('price').value,
-        condition: document.getElementById('condition').value
-      });
+  const email = localStorage.getItem('loggedInEmail');
+  const resp = await fetch(`/api/me?email=${email}`);
+  if (!resp.ok) { alert("Could not get seller ID"); return; }
+  const user = await resp.json();
 
-      const response = await fetch('/listings/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: data
-      });
+  const data = new URLSearchParams({
+    sellerId: user.id,
+    code: document.getElementById('course').value,
+    title: document.getElementById('title').value,
+    author: document.getElementById('author').value,
+    ISBN: document.getElementById('isbn').value,
+    price: document.getElementById('price').value,
+    condition: document.getElementById('condition').value
+  });
 
-      if (response.ok) {
-        popupOverlay.style.display = 'flex';
-        form.reset();
-      } else {
-        alert('Error submitting listing. Please try again.');
-      }
-    });
+  const response = await fetch('/listings/add', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: data
+  });
+
+  if (response.ok) {
+    popupOverlay.style.display = 'flex';
+    form.reset();
+    loadRecentListings(); // refresh the home page listings dynamically
+  } else {
+    alert('Error submitting listing.');
+  }
+});
+
 
     closePopup.addEventListener('click', () => {
       popupOverlay.style.display = 'none';
