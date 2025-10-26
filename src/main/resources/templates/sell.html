@@ -7,23 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f5f6fa;
-      color: #222;
-      display: flex;
-      height: 100vh;
-    }
-
-    .layout {
-      display: flex;
-      width: 100%;
-    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', sans-serif; background-color: #f5f6fa; color: #222; display: flex; height: 100vh; }
+    .layout { display: flex; width: 100%; }
 
     /* SIDEBAR */
     .sidebar {
@@ -68,21 +54,9 @@
     }
 
     /* MAIN CONTENT */
-    .main-content {
-      flex: 1;
-      padding: 2rem;
-      overflow-y: auto;
-    }
-
-    header h1 {
-      color: #8b0000;
-      margin-bottom: 0.3rem;
-    }
-
-    header p {
-      color: #444;
-      margin-bottom: 2rem;
-    }
+    .main-content { flex: 1; padding: 2rem; overflow-y: auto; }
+    header h1 { color: #8b0000; margin-bottom: 0.3rem; }
+    header p { color: #444; margin-bottom: 2rem; }
 
     /* FORM */
     form {
@@ -126,10 +100,7 @@
       box-shadow: 0 0 5px rgba(139,0,0,0.3);
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
+    textarea { resize: vertical; min-height: 100px; }
 
     button {
       background: #8b0000;
@@ -143,10 +114,7 @@
       transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    button:hover {
-      background: #a83232;
-      transform: translateY(-2px);
-    }
+    button:hover { background: #a83232; transform: translateY(-2px); }
 
     footer {
       text-align: center;
@@ -179,15 +147,8 @@
       animation: fadeIn 0.3s ease;
     }
 
-    .popup h2 {
-      color: #8b0000;
-      margin-bottom: 1rem;
-    }
-
-    .popup p {
-      margin-bottom: 1.5rem;
-    }
-
+    .popup h2 { color: #8b0000; margin-bottom: 1rem; }
+    .popup p { margin-bottom: 1.5rem; }
     .popup button {
       background: #8b0000;
       color: #fff;
@@ -204,33 +165,16 @@
     }
 
     @media (max-width: 800px) {
-      .layout {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        flex-direction: row;
-        width: 100%;
-        border-radius: 0;
-        justify-content: space-around;
-        padding: 1rem;
-      }
-
-      .sidebar nav {
-        flex-direction: row;
-        gap: 0.5rem;
-      }
-
-      form {
-        width: 90%;
-      }
+      .layout { flex-direction: column; }
+      .sidebar { flex-direction: row; width: 100%; border-radius: 0; justify-content: space-around; padding: 1rem; }
+      .sidebar nav { flex-direction: row; gap: 0.5rem; }
+      form { width: 90%; }
     }
   </style>
 </head>
 
 <body>
   <div class="layout">
-
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="logo">BC<br>Exchange</div>
@@ -254,7 +198,6 @@
           <input type="text" id="title" name="title" placeholder="e.g., ¡ANDA!" required>
         </div>
 
-
         <div>
           <label for="isbn">ISBN</label>
           <input type="text" id="isbn" name="isbn" placeholder="e.g., 978-0-306-40615-7" required>
@@ -262,7 +205,7 @@
 
         <div>
           <label for="course">Course Name</label>
-          <input type="text" id="course" name="course" placeholder="e.g., Elementary Spanish I" requires>
+          <input type="text" id="course" name="course" placeholder="e.g., Elementary Spanish I" required>
         </div>
 
         <div>
@@ -279,8 +222,6 @@
           <label for="price">Price ($)</label>
           <input type="number" id="price" name="price" min="1" required>
         </div>
-
- 
 
         <button type="submit">List My Book</button>
       </form>
@@ -301,15 +242,36 @@
     const popupOverlay = document.getElementById('popupOverlay');
     const closePopup = document.getElementById('closePopup');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      popupOverlay.style.display = 'flex';
-      form.reset();
+
+      const data = new URLSearchParams({
+        email: 'john@bc.edu',
+        password: 'password123',
+        code: document.getElementById('course').value,
+        title: document.getElementById('title').value,
+        ISBN: document.getElementById('isbn').value,
+        price: document.getElementById('price').value,
+        condition: document.getElementById('condition').value
+      });
+
+      const response = await fetch('/listings/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data
+      });
+
+      if (response.ok) {
+        popupOverlay.style.display = 'flex';
+        form.reset();
+      } else {
+        alert('Error submitting listing. Please try again.');
+      }
     });
 
     closePopup.addEventListener('click', () => {
       popupOverlay.style.display = 'none';
-      window.location.href = '/index';
+      window.location.href = '/buy.html';
     });
   </script>
 </body>
