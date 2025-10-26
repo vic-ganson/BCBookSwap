@@ -250,7 +250,7 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       let sellerId = null;
-      const email = const email = localStorage.getItem('loggedInEmail');
+      const email = localStorage.getItem('loggedInEmail');
 
       const resp = await fetch(`/api/me?email=${email}`);
       if (resp.ok) {
