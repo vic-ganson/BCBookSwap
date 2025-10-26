@@ -38,7 +38,7 @@ try{
           const resp = await fetch('/api/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ username: usernameEntry, passwordHash: passwordEntry })
+              body: JSON.stringify({ email: usernameEntry, password: passwordEntry })
           });
   
           if(resp.ok){
@@ -77,7 +77,7 @@ try{
         const resp = await fetch('/api/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: usernameEntry, passwordHash: passwordEntry })
+            body: JSON.stringify({ email: usernameEntry, password: passwordEntry })
         });
 
         if(resp.ok){
