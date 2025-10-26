@@ -22,12 +22,14 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Account account) {
-        // Check if an account with this email already exists
+        if (account.getEmail() == null || account.getPassword() == null) {
+            return ResponseEntity.badRequest().body("Email and password are required");
+        }
+
         if (accountRepo.findByEmail(account.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Email already registered");
         }
 
-        // Encode password before saving
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountRepo.save(account);
 
@@ -36,6 +38,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Account account) {
+        if (account.getEmail() == null || account.getPassword() == null) {
+            return ResponseEntity.status(400).body("Email and password are required");
+        }
+
         Optional<Account> userOpt = accountRepo.findByEmail(account.getEmail());
         if (userOpt.isEmpty()) {
             return ResponseEntity.status(401).body("Invalid login");
