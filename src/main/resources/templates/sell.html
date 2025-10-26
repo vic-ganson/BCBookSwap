@@ -199,6 +199,11 @@
         </div>
 
         <div>
+          <label for="author">Author</label>
+          <input type="text" id="author" name="author" placeholder="e.g., James, LeBron" required>
+        </div>
+
+        <div>
           <label for="isbn">ISBN</label>
           <input type="text" id="isbn" name="isbn" placeholder="e.g., 978-0-306-40615-7" required>
         </div>
@@ -250,6 +255,7 @@
         password: 'password123',
         code: document.getElementById('course').value,
         title: document.getElementById('title').value,
+        author: document.getElementById('author').value,
         ISBN: document.getElementById('isbn').value,
         price: document.getElementById('price').value,
         condition: document.getElementById('condition').value
