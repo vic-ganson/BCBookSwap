@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface ListingRepository extends JpaRepository<Listing, Long> {
 
-    // Get all listings for a specific seller
+    // get all listings by seller
     List<Listing> findBySeller(Account seller);
 
-    // Search listings by title, course code, or author (ignore case)
+    // Search listings
     List<Listing> findByTitleContainingIgnoreCaseOrCourseCodeContainingIgnoreCaseOrAuthorContainingIgnoreCase(
         String title, String courseCode, String author
     );
