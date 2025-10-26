@@ -9,6 +9,7 @@
   * { box-sizing: border-box; }
   body { margin:0; font-family:'Inter',sans-serif; background:#f5f6fa; display:flex; min-height:100vh; }
   .layout { display:flex; width:100%; }
+
   .sidebar {
     width:220px; background:linear-gradient(180deg,#8b0000,#a83232);
     color:white; padding:2rem 1rem; display:flex; flex-direction:column; align-items:center;
@@ -19,9 +20,7 @@
   .sidebar nav a { color:white; text-decoration:none; font-weight:600; padding:0.75rem 1rem; border-radius:10px; transition:background 0.3s ease; }
   .sidebar nav a:hover, .sidebar nav a.active { background: rgba(255,255,255,0.2); }
 
-  .main-content {
-    flex:1; padding:2rem; display:flex; flex-direction:column; align-items:center; gap:2rem;
-  }
+  .main-content { flex:1; padding:2rem; display:flex; flex-direction:column; align-items:center; gap:2rem; }
   .book-card {
     background:white; padding:1.5rem; border-radius:20px;
     box-shadow:0 5px 15px rgba(0,0,0,0.15); max-width:700px; width:90%; text-align:center;
@@ -54,7 +53,7 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <div class="logo">BC<br>BookSwap</div>
+      <div class="logo">BC<br>Exchange</div>
       <nav>
         <a href="/index">Home</a>
         <a href="/sell">Sell a Book</a>
@@ -63,7 +62,7 @@
     </aside>
 
     <div class="main-content" id="booksContainer">
-      <p>Loading book...</p>
+      <p>Loading books...</p>
     </div>
   </div>
 
@@ -74,21 +73,56 @@
   </div>
 
   <script>
-    function getParams() { return new URLSearchParams(window.location.search); }
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("query");
+    const titleParam = params.get("title");
 
-    async function loadBook() {
+    async function loadBooks() {
       const container = document.getElementById('booksContainer');
-      const p = getParams();
-      const title = p.get('title');
-      const author = p.get('author');
-      const course = p.get('course');
-      const price = p.get('price');
-      const condition = p.get('condition');
-      const sellerEmail = p.get('sellerEmail');
-      const sellerId = p.get('sellerId');
+
+      // CASE 1: Search results (query mode)
+      if (query && !titleParam) {
+        try {
+          const response = await fetch(`/listings/search?term=${encodeURIComponent(query)}`);
+          const listings = await response.json();
+
+          if (!listings || listings.length === 0) {
+            container.innerHTML = `<p>No books found for "${query}".</p>`;
+            return;
+          }
+
+          container.innerHTML = "";
+          listings.forEach(book => {
+            const card = document.createElement("div");
+            card.classList.add("book-card");
+            card.innerHTML = `
+              <h2>${book.title}</h2>
+              <p><strong>Author:</strong> ${book.author}</p>
+              <p><strong>Course:</strong> ${book.courseCode}</p>
+              <p><strong>Condition:</strong> ${book.condition}</p>
+              <p><strong>Price:</strong> $${book.price}</p>
+              <button onclick="buyBook('${book.title}', '${book.courseCode}', '${book.sellerId}', '${book.sellerEmail}')">Buy Now</button>
+            `;
+            container.appendChild(card);
+          });
+        } catch (error) {
+          container.innerHTML = "<p>Error loading books. Please try again later.</p>";
+          console.error(error);
+        }
+        return;
+      }
+
+      // CASE 2: Single book (from homepage redirect)
+      const title = params.get("title");
+      const author = params.get("author");
+      const course = params.get("course");
+      const price = params.get("price");
+      const condition = params.get("condition");
+      const sellerEmail = params.get("sellerEmail");
+      const sellerId = params.get("sellerId");
 
       if (!title) {
-        container.innerHTML = "<p>No book found.</p>";
+        container.innerHTML = "<p>No book selected.</p>";
         return;
       }
 
@@ -137,17 +171,16 @@ Thanks!</textarea>
     function copyMessage() {
       const textarea = document.getElementById("emailTemplate");
       textarea.select();
-      textarea.setSelectionRange(0, 99999);
       document.execCommand("copy");
       alert("Message copied! You can paste it into your email.");
     }
 
     function closeModal() {
       document.getElementById('successModal').style.display = 'none';
-      window.location.href = "/index"; // refresh home to update listings
+      window.location.href = "/index"; // refresh home
     }
 
-    loadBook();
+    loadBooks();
   </script>
 </body>
 </html>
