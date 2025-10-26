@@ -16,11 +16,11 @@ public class ListingsController {
     private final Listings listings = new Listings();
 
     @GetMapping("/{sellerId}")
-    public String getSellerListings(@PathVariable Long id, Model model) {
+    public String getSellerListings(@PathVariable Long sellerId, Model model) {
         List<Account> allAccounts = accountRepo.findAll();
         Account seller = new Account();
         for (Account acc : allAccounts){
-            if (acc.getId() == id){
+            if (acc.getId().equals(sellerId)){
                 seller = acc;
                 break;
             }
@@ -45,7 +45,7 @@ public class ListingsController {
     }
 
     @PostMapping("/add")
-    public String addListing(@RequestParam Long id,
+    public String addListing(@RequestParam Long sellerId,
                              @RequestParam String code,
                              @RequestParam String title,
                              @RequestParam String author,
@@ -55,7 +55,7 @@ public class ListingsController {
         List<Account> allAccounts = accountRepo.findAll();
         Account seller = new Account();
         for (Account acc : allAccounts){
-            if (acc.getId() == id){
+            if (acc.getId().equals(sellerId)){
                 seller = acc;
                 break;
             }
@@ -65,11 +65,11 @@ public class ListingsController {
     }
 
     @PostMapping("/remove")
-    public String removeListing(@RequestParam Long id, @RequestParam String code) {
+    public String removeListing(@RequestParam Long sellerId, @RequestParam String code) {
         List<Account> allAccounts = accountRepo.findAll();
         Account seller = new Account();
         for (Account acc : allAccounts){
-            if (acc.getId() == id){
+            if (acc.getId().equals(sellerId)){
                 seller = acc;
                 break;
             }
@@ -85,11 +85,11 @@ public class ListingsController {
     }
 
     @PostMapping("/removeSeller")
-    public String removeSeller(@RequestParam Long id) {
+    public String removeSeller(@RequestParam Long sellerId) {
         List<Account> allAccounts = accountRepo.findAll();
         Account seller = new Account();
         for (Account acc : allAccounts){
-            if (acc.getId() == id){
+            if (acc.getId().equals(sellerId)){
                 seller = acc;
                 break;
             }
