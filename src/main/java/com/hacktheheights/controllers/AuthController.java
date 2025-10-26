@@ -1,3 +1,15 @@
+package com.hacktheheights.controllers;
+
+import com.hacktheheights.models.Account;
+import com.hacktheheights.repositories.AccountRepository;
+
+import org.springframework.web.bind.annotation.*; // for @RestController, @RequestBody, etc.
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Optional;
+
+
 @RestController
 @RequestMapping("/api")
 public class AuthController {
