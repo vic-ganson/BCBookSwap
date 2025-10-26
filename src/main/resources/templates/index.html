@@ -7,49 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-     }
-
-    .topbar-left h1 {
-      color: #8b0000;
-      margin: 0;
-     }
-
-    .topbar-left p {
-     margin: 0.3rem 0 0;
-     color: #444;
-     }
-
-    .topbar-btn {
-      background: #8b0000;
-      color: #fff;
-      text-decoration: none;
-      padding: 0.7rem 1.4rem;
-      border-radius: 10px;
-      font-weight: 600;
-      transition: background 0.2s ease, transform 0.2s ease;
-     }
-
-     .topbar-btn:hover {
-      background: #a83232;
-      transform: translateY(-2px);
-     }
-
-     @media (max-width: 700px) {
-      .topbar {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.8rem;
-     }
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -60,10 +18,7 @@
       height: 100vh;
     }
 
-    .layout {
-      display: flex;
-      width: 100%;
-    }
+    .layout { display: flex; width: 100%; }
 
     .sidebar {
       width: 220px;
@@ -85,13 +40,7 @@
       line-height: 1.2;
     }
 
-    .sidebar nav {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      gap: 1rem;
-    }
-
+    .sidebar nav { display: flex; flex-direction: column; width: 100%; gap: 1rem; }
     .sidebar nav a {
       color: white;
       text-decoration: none;
@@ -100,26 +49,20 @@
       border-radius: 10px;
       transition: background 0.3s ease;
     }
+    .sidebar nav a:hover, .sidebar nav a.active { background: rgba(255,255,255,0.2); }
 
-    .sidebar nav a:hover,
-    .sidebar nav a.active {
-      background: rgba(255, 255, 255, 0.2);
-    }
+    .main-content { flex: 1; padding: 2rem; overflow-y: auto; }
 
-    .main-content {
-      flex: 1;
-      padding: 2rem;
-      overflow-y: auto;
-    }
+    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .topbar h1 { color: #8b0000; margin-bottom: 0.3rem; }
 
-    .topbar {
-      margin-bottom: 2rem;
+    .topbar-btn {
+      background: #8b0000; color: #fff;
+      text-decoration: none; padding: 0.7rem 1.4rem;
+      border-radius: 10px; font-weight: 600;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
-
-    .topbar h1 {
-      color: #8b0000;
-      margin-bottom: 0.3rem;
-    }
+    .topbar-btn:hover { background: #a83232; transform: translateY(-2px); }
 
     .hero {
       background: linear-gradient(120deg, #fff3cd, #ffeeba);
@@ -129,45 +72,18 @@
       margin-bottom: 3rem;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
+    .hero h2 { margin-top: 0; color: #8b0000; font-size: 1.8rem; }
+    .hero p { font-size: 1.1rem; color: #444; margin-bottom: 1.5rem; }
 
-    .hero h2 {
-      margin-top: 0;
-      color: #8b0000;
-      font-size: 1.8rem;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: #444;
-      margin-bottom: 1.5rem;
-    }
-
-    .search-bar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
+    .search-bar { display: flex; justify-content: center; margin-bottom: 1.5rem; }
     .search-bar input {
-      width: 80%;
-      max-width: 700px;
-      padding: 0.9rem 1.2rem;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
+      width: 80%; max-width: 700px;
+      padding: 0.9rem 1.2rem; border: none;
+      border-radius: 30px; font-size: 1rem;
       box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      outline: none;
-      transition: box-shadow 0.3s ease;
+      outline: none; transition: box-shadow 0.3s ease;
     }
-
-    .search-bar input:focus {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-
-    .hero-buttons {
-      margin-top: 1rem;
-    }
+    .search-bar input:focus { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
     .btn {
       display: inline-block;
@@ -177,131 +93,33 @@
       font-weight: 600;
       transition: transform 0.2s ease, background 0.2s ease;
     }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.primary { background: #8b0000; color: #fff; }
+    .btn.small { background: #8b0000; color: white; border: none; padding: 0.5rem 1rem; font-size: 0.9rem; border-radius: 8px; }
 
-    .btn:hover {
-      transform: translateY(-2px);
-    }
+    .listings h2 { color: #8b0000; margin-bottom: 1rem; }
 
-    .btn.primary {
-      background: #8b0000;
-      color: #fff;
-    }
-
-    .btn.secondary {
-      background: #fff;
-      border: 2px solid #8b0000;
-      color: #8b0000;
-      margin-left: 0.5rem;
-    }
-
-    .btn.small {
-      background: #8b0000;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      border-radius: 8px;
-    }
-
-    .listings h2 {
-      color: #8b0000;
-      margin-bottom: 1rem;
-    }
-
-    .book-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+    .book-list { display: flex; flex-direction: column; gap: 1rem; }
 
     .book-card {
-      display: flex;
-      align-items: center;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
+      display: flex; align-items: center; background: white;
+      border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden; padding: 1rem;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      padding: 1rem;
     }
+    .book-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
 
-    .book-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-
-    .book-card img {
-      width: 120px;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-right: 1.5rem;
-    }
-
-    .book-info {
-      flex: 1;
-    }
-
-    .book-info h3 {
-      margin: 0 0 0.3rem 0;
-      font-size: 1.2rem;
-      color: #8b0000;
-    }
-
-    .book-info p {
-      margin: 0.2rem 0;
-      color: #444;
-    }
-
-    .book-info .price {
-      font-weight: 600;
-    }
-
-    .book-card .btn.small {
-      margin-left: 1rem;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      color: #777;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 800px) {
-      .layout {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        flex-direction: row;
-        width: 100%;
-        border-radius: 0;
-        justify-content: space-around;
-        padding: 1rem;
-      }
-
-      .sidebar nav {
-        flex-direction: row;
-        gap: 0.5rem;
-      }
-
-      .book-card {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .book-card img {
-        margin: 0 0 1rem 0;
-      }
-    }
+    .book-info { flex: 1; }
+    .book-info h3 { margin: 0 0 0.3rem 0; font-size: 1.2rem; color: #8b0000; }
+    .book-info p { margin: 0.2rem 0; color: #444; }
+    .book-info .price { font-weight: 600; }
   </style>
 </head>
 
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <div class="logo"><br>BC BookSwap</div>
+      <div class="logo">BC<br>BookSwap</div>
       <nav>
         <a href="/index" class="active">Home</a>
         <a href="/sell">Sell a Book</a>
@@ -312,21 +130,19 @@
     <div class="main-content">
      <header class="topbar">
        <div class="topbar-left">
-         <h1>Welcome to BC Textbook Exchange</h1>
-         <p>Buy and sell textbooks safely within the Boston College community.</p>
+         <h1>Welcome to BC BookSwap</h1>
+         <p>Buy and sell textbooks within the BC community.</p>
        </div>
-         <a href="/sell" class="btn topbar-btn">Sell a Book</a>
+       <a href="/sell" class="btn topbar-btn">Sell a Book</a>
      </header>
 
       <section class="hero">
         <div class="hero-inner">
           <h2>Save money. Stay local. Help other Eagles.</h2>
           <p>Find the books you need this semester.</p>
-
           <form id="searchForm" class="search-bar">
             <input type="text" id="search" placeholder="Search for textbooks, authors, or courses..." required>
           </form>
-
           <div class="hero-buttons">
             <button type="submit" form="searchForm" class="btn primary">Search</button>
           </div>
@@ -339,8 +155,6 @@
           <p>Loading recent listings...</p>
         </div>
       </section>
-
-      <footer></footer>
     </div>
   </div>
 
@@ -350,9 +164,7 @@
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const query = document.getElementById('search').value.trim();
-      if (query) {
-        window.location.href = `/buy?query=${encodeURIComponent(query)}`;
-      }
+      if (query) window.location.href = `/buy?query=${encodeURIComponent(query)}`;
     });
 
     // Load recent listings
@@ -380,11 +192,13 @@
               <p class="price">$${book.price} · ${book.condition} Condition</p>
               <p>${book.author}</p>
             </div>
-            <button class="btn small">Buy</button>
+            <button class="btn small" 
+              onclick="window.location.href='/buy?title=${encodeURIComponent(book.title)}&author=${encodeURIComponent(book.author)}&course=${encodeURIComponent(book.courseCode)}&price=${book.price}&condition=${encodeURIComponent(book.condition)}&sellerEmail=${encodeURIComponent(book.sellerEmail)}&sellerId=${book.sellerId}'">
+              Buy
+            </button>
           `;
           listContainer.appendChild(card);
         });
-
       } catch (error) {
         listContainer.innerHTML = "<p>Error loading listings.</p>";
         console.error(error);
