@@ -52,7 +52,7 @@ try{
         alert("Your password entries must match.")
       } else {
         //save account
-        window.location.href = "index.html";
+        window.location.href = "/index";
       }
     }
   });
@@ -63,7 +63,7 @@ try{
 const createBtn = document.querySelector(".createAccountButton");
 if (createBtn) {
   createBtn.addEventListener("click", function() {
-    window.location.href = "createAccount.html";
+    window.location.href = "/createAccount";
   });
 }
 
@@ -71,7 +71,7 @@ if (createBtn) {
 const loginBtn = document.querySelector(".loginButton");
 if (loginBtn) {
   loginBtn.addEventListener("click", function() {
-    window.location.href = "login.html";
+    window.location.href = "/login";
   });
 }
 
