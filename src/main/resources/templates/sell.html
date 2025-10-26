@@ -249,13 +249,13 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      let sellerId = null; // define outside
-      const email = "john@bc.edu"; // replace with dynamic email if needed
+      let sellerId = null;
+      const email = const email = localStorage.getItem('loggedInEmail');
 
       const resp = await fetch(`/api/me?email=${email}`);
       if (resp.ok) {
         const user = await resp.json();
-        sellerId = user.id; // now it's accessible below
+        sellerId = user.id;
       } else {
         alert("Could not get seller ID");
         return;
@@ -286,7 +286,7 @@
 
     closePopup.addEventListener('click', () => {
       popupOverlay.style.display = 'none';
-      window.location.href = '/buy.html';
+      window.location.href = '/buy';
     });
   </script>
 </body>
