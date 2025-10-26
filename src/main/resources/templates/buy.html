@@ -9,112 +9,64 @@
   * { box-sizing: border-box; }
   body { margin:0; font-family:'Inter',sans-serif; background:#f5f6fa; display:flex; min-height:100vh; }
   .layout { display:flex; width:100%; }
-
-  /* SIDEBAR */
   .sidebar {
-    width:220px;
-    background:linear-gradient(180deg,#8b0000,#a83232);
-    color:white;
-    padding:2rem 1rem;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    border-top-right-radius:20px;
-    border-bottom-right-radius:20px;
+    width:220px; background:linear-gradient(180deg,#8b0000,#a83232);
+    color:white; padding:2rem 1rem; display:flex; flex-direction:column; align-items:center;
+    border-top-right-radius:20px; border-bottom-right-radius:20px;
   }
   .sidebar .logo { font-size:1.5rem; font-weight:700; text-align:center; margin-bottom:3rem; line-height:1.2; }
   .sidebar nav { display:flex; flex-direction:column; width:100%; gap:1rem; }
   .sidebar nav a { color:white; text-decoration:none; font-weight:600; padding:0.75rem 1rem; border-radius:10px; transition:background 0.3s ease; }
   .sidebar nav a:hover, .sidebar nav a.active { background: rgba(255,255,255,0.2); }
 
-  /* MAIN CONTENT */
   .main-content {
-    flex:1;
-    padding:2rem;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:2rem;
+    flex:1; padding:2rem; display:flex; flex-direction:column; align-items:center; gap:2rem;
   }
-
   .book-card {
-    background:white;
-    padding:1.5rem;
-    border-radius:20px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.15);
-    max-width:700px;
-    width:90%;
-    text-align:center;
+    background:white; padding:1.5rem; border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15); max-width:700px; width:90%; text-align:center;
   }
-
   .book-card h2 { color:#8b0000; margin-bottom:1rem; }
   .book-card p { color:#555; margin:0.5rem 0; }
 
   button {
-    background:#8b0000;
-    color:white;
-    border:none;
-    border-radius:10px;
-    padding:0.8rem 1.5rem;
-    font-weight:600;
-    cursor:pointer;
-    margin-top:1rem;
-    transition:background 0.2s ease, transform 0.2s ease;
+    background:#8b0000; color:white; border:none; border-radius:10px;
+    padding:0.8rem 1.5rem; font-weight:600; cursor:pointer;
+    margin-top:1rem; transition:background 0.2s ease, transform 0.2s ease;
   }
   button:hover { background:#a83232; transform:translateY(-2px); }
 
-  /* MODAL */
   .modal {
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.5);
-    justify-content:center;
-    align-items:center;
-    z-index:1000;
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;
   }
   .modal-content {
-    background:white;
-    padding:2rem 3rem;
-    border-radius:20px;
-    text-align:center;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-    max-width:500px;
+    background:white; padding:2rem 3rem; border-radius:20px;
+    text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.3); max-width:500px;
   }
   .modal-content p { margin-bottom:1rem; font-size:1rem; color:#333; }
   textarea {
-    width:100%;
-    height:120px;
-    border-radius:10px;
-    padding:10px;
-    font-family:'Inter',sans-serif;
-    border:1px solid #ccc;
-    margin-top:0.5rem;
+    width:100%; height:120px; border-radius:10px; padding:10px;
+    font-family:'Inter',sans-serif; border:1px solid #ccc; margin-top:0.5rem;
   }
 </style>
 </head>
 <body>
   <div class="layout">
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="logo">BC<br>BookSwap</div>
       <nav>
-        <a href="index">Home</a>
-        <a href="sell">Sell a Book</a>
-        <a href="account">My Profile</a>
+        <a href="/index">Home</a>
+        <a href="/sell">Sell a Book</a>
+        <a href="/account">My Profile</a>
       </nav>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <div class="main-content" id="booksContainer">
-      <p>Loading books...</p>
+      <p>Loading book...</p>
     </div>
   </div>
 
-  <!-- MODAL -->
   <div class="modal" id="successModal">
     <div class="modal-content" id="modalBody">
       <p>Loading...</p>
@@ -122,58 +74,43 @@
   </div>
 
   <script>
-    // Read query parameter (?query=biology)
-    const params = new URLSearchParams(window.location.search);
-    const searchTerm = params.get("query") || "";
+    function getParams() { return new URLSearchParams(window.location.search); }
 
-    async function loadBooks() {
+    async function loadBook() {
       const container = document.getElementById('booksContainer');
-      container.innerHTML = "<p>Loading books...</p>";
+      const p = getParams();
+      const title = p.get('title');
+      const author = p.get('author');
+      const course = p.get('course');
+      const price = p.get('price');
+      const condition = p.get('condition');
+      const sellerEmail = p.get('sellerEmail');
+      const sellerId = p.get('sellerId');
 
-      try {
-        const response = await fetch(`/listings/search?term=${encodeURIComponent(searchTerm)}`);
-        const listings = await response.json();
-
-        if (!listings || listings.length === 0) {
-          container.innerHTML = `<p>No books found for "${searchTerm}".</p>`;
-          return;
-        }
-
-        container.innerHTML = ""; // clear loading text
-
-        listings.forEach(book => {
-          const card = document.createElement("div");
-          card.classList.add("book-card");
-          card.innerHTML = `
-            <h2>${book.title}</h2>
-            <p><strong>Author:</strong> ${book.author}</p>
-            <p><strong>Course:</strong> ${book.courseCode}</p>
-            <p><strong>Condition:</strong> ${book.condition}</p>
-            <p><strong>Price:</strong> $${book.price}</p>
-            <button onclick="buyBook('${book.title}', '${book.courseCode}', '${book.sellerId}', '${book.sellerEmail}')">Buy Now</button>
-          `;
-          container.appendChild(card);
-        });
-      } catch (error) {
-        console.error(error);
-        container.innerHTML = "<p>Error loading books. Please try again later.</p>";
+      if (!title) {
+        container.innerHTML = "<p>No book found.</p>";
+        return;
       }
+
+      container.innerHTML = `
+        <div class="book-card">
+          <h2>${title}</h2>
+          <p><strong>Author:</strong> ${author}</p>
+          <p><strong>Course:</strong> ${course}</p>
+          <p><strong>Condition:</strong> ${condition}</p>
+          <p><strong>Price:</strong> $${price}</p>
+          <button onclick="buyBook('${title}', '${course}', '${sellerId}', '${sellerEmail}')">Buy Now</button>
+        </div>
+      `;
     }
 
-    // Handle buying a book (remove listing + show seller info)
     async function buyBook(title, code, sellerId, email) {
       try {
-        // 1️⃣ Remove the listing from backend
         await fetch('/listings/remove', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({
-            sellerId: sellerId,
-            code: code
-          })
+          body: new URLSearchParams({ sellerId, code })
         });
-
-        // 2️⃣ Then show contact popup
         showSellerInfo(email, title);
       } catch (error) {
         alert("Error completing purchase. Please try again.");
@@ -181,11 +118,9 @@
       }
     }
 
-    // Show seller info popup
     function showSellerInfo(email, title) {
       const modal = document.getElementById("successModal");
       const modalBody = document.getElementById("modalBody");
-
       modalBody.innerHTML = `
         <h3 style="color:#8b0000; margin-bottom:1rem;">Contact the Seller</h3>
         <p><strong>Seller Email:</strong> <a href="mailto:${email}" style="color:#8b0000;">${email}</a></p>
@@ -196,11 +131,9 @@ Thanks!</textarea>
         <button onclick="copyMessage()" style="margin-top:1rem;">Copy Message</button>
         <button onclick="closeModal()" style="margin-top:0.5rem;background:#a83232;">Close</button>
       `;
-
       modal.style.display = "flex";
     }
 
-    // Copy email message to clipboard
     function copyMessage() {
       const textarea = document.getElementById("emailTemplate");
       textarea.select();
@@ -211,9 +144,10 @@ Thanks!</textarea>
 
     function closeModal() {
       document.getElementById('successModal').style.display = 'none';
+      window.location.href = "/index"; // refresh home to update listings
     }
 
-    loadBooks();
+    loadBook();
   </script>
 </body>
 </html>
