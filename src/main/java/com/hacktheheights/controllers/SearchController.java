@@ -57,4 +57,11 @@ public class SearchController {
         model.addAttribute("query", query);
         return "search";
     }
+
+    @GetMapping("/listings/search")
+    @ResponseBody
+    public List<Textbook> searchListings(@RequestParam String term) {
+        return listings.search(term);
+    }
+
 }
