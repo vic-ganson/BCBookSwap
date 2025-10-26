@@ -28,11 +28,18 @@
   .sidebar nav a:hover, .sidebar nav a.active { background: rgba(255,255,255,0.2); }
 
   /* MAIN CONTENT */
-  .main-content { flex:1; display:flex; justify-content:center; align-items:center; }
+  .main-content {
+    flex:1;
+    padding:2rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2rem;
+  }
 
   .book-card {
     background:white;
-    padding:2rem;
+    padding:1.5rem;
     border-radius:20px;
     box-shadow:0 5px 15px rgba(0,0,0,0.15);
     max-width:400px;
@@ -51,7 +58,7 @@
     padding:0.8rem 1.5rem;
     font-weight:600;
     cursor:pointer;
-    margin-top:1.5rem;
+    margin-top:1rem;
     transition:background 0.2s ease, transform 0.2s ease;
   }
   button:hover { background:#a83232; transform:translateY(-2px); }
@@ -93,14 +100,8 @@
     </aside>
 
     <!-- MAIN CONTENT -->
-    <div class="main-content">
-      <div class="book-card">
-        <h2>TEXTBOOK TITLE NAME</h2>
-        <p><strong>Course:</strong> ECON1101</p>
-        <p><strong>Condition:</strong> Good</p>
-        <p><strong>Price:</strong> $30</p>
-        <button onclick="buyBook()">Buy Now</button>
-      </div>
+    <div class="main-content" id="booksContainer">
+      <p>Loading books...</p>
     </div>
   </div>
 
@@ -114,14 +115,54 @@
   </div>
 
   <script>
-    function buyBook() {
-      document.getElementById('successModal').style.display = 'flex';
+    // Read query parameter (?query=biology)
+    const params = new URLSearchParams(window.location.search);
+    const searchTerm = params.get("query") || "";
+
+    async function loadBooks() {
+      const container = document.getElementById('booksContainer');
+      container.innerHTML = "<p>Loading books...</p>";
+
+      try {
+        const response = await fetch(`/listings/search?term=${encodeURIComponent(searchTerm)}`);
+        const listings = await response.json();
+
+        if (listings.length === 0) {
+          container.innerHTML = `<p>No books found for "${searchTerm}".</p>`;
+          return;
+        }
+
+        container.innerHTML = ""; // clear loading text
+
+        listings.forEach(book => {
+          const card = document.createElement("div");
+          card.classList.add("book-card");
+          card.innerHTML = `
+            <h2>${book.title}</h2>
+            <p><strong>Author:</strong> ${book.author}</p>
+            <p><strong>Course:</strong> ${book.courseCode}</p>
+            <p><strong>Condition:</strong> ${book.condition}</p>
+            <p><strong>Price:</strong> $${book.price}</p>
+            <button onclick="buyBook('${book.title}')">Buy Now</button>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        container.innerHTML = "<p>Error loading books. Please try again later.</p>";
+        console.error(error);
+      }
+    }
+
+    function buyBook(title) {
+      const modal = document.getElementById("successModal");
+      modal.style.display = "flex";
     }
 
     function closeModal() {
       document.getElementById('successModal').style.display = 'none';
-      window.location.href = '/index'; // redirect back to listings
     }
+
+    loadBooks();
   </script>
 </body>
 </html>
