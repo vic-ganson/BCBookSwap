@@ -19,12 +19,12 @@ public class AuthController {
         this.accountRepo = accountRepo;
         this.passwordEncoder = passwordEncoder;
     }
-    
+    /*
     @GetMapping("/me")
     public ResponseEntity<Account> getCurrentUser(@RequestParam String email) {
         return accountRepo.findByEmail(email).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
-    
+    */
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Account account) {
         if (account.getEmail() == null || account.getPassword() == null) {
