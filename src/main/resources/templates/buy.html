@@ -82,9 +82,18 @@
     border-radius:20px;
     text-align:center;
     box-shadow:0 5px 15px rgba(0,0,0,0.3);
-    max-width:350px;
+    max-width:500px;
   }
-  .modal-content p { margin-bottom:1.5rem; font-size:1rem; color:#333; }
+  .modal-content p { margin-bottom:1rem; font-size:1rem; color:#333; }
+  textarea {
+    width:100%;
+    height:120px;
+    border-radius:10px;
+    padding:10px;
+    font-family:'Inter',sans-serif;
+    border:1px solid #ccc;
+    margin-top:0.5rem;
+  }
 </style>
 </head>
 <body>
@@ -107,10 +116,8 @@
 
   <!-- MODAL -->
   <div class="modal" id="successModal">
-    <div class="modal-content">
-      <p>Purchase successful!</p> 
-      <p>An email with additional details will be sent to you shortly.</p>
-      <button onclick="closeModal()">OK</button>
+    <div class="modal-content" id="modalBody">
+      <p>Loading...</p>
     </div>
   </div>
 
@@ -127,7 +134,7 @@
         const response = await fetch(`/listings/search?term=${encodeURIComponent(searchTerm)}`);
         const listings = await response.json();
 
-        if (listings.length === 0) {
+        if (!listings || listings.length === 0) {
           container.innerHTML = `<p>No books found for "${searchTerm}".</p>`;
           return;
         }
@@ -143,19 +150,42 @@
             <p><strong>Course:</strong> ${book.courseCode}</p>
             <p><strong>Condition:</strong> ${book.condition}</p>
             <p><strong>Price:</strong> $${book.price}</p>
-            <button onclick="buyBook('${book.title}')">Buy Now</button>
+            <button onclick="showSellerInfo('${book.sellerEmail}', '${book.title}')">Buy Now</button>
           `;
           container.appendChild(card);
         });
       } catch (error) {
-        container.innerHTML = "<p>Error loading books. Please try again later.</p>";
         console.error(error);
+        container.innerHTML = "<p>Error loading books. Please try again later.</p>";
       }
     }
 
-    function buyBook(title) {
+    // Show seller info popup
+    function showSellerInfo(email, title) {
       const modal = document.getElementById("successModal");
+      const modalBody = document.getElementById("modalBody");
+
+      modalBody.innerHTML = `
+        <h3 style="color:#8b0000; margin-bottom:1rem;">Contact the Seller</h3>
+        <p><strong>Seller Email:</strong> <a href="mailto:${email}" style="color:#8b0000;">${email}</a></p>
+        <p>You can copy and send this message:</p>
+        <textarea id="emailTemplate">Hello, I’m interested in buying your textbook "${title}" listed on BC BookSwap.
+Is it still available?
+Thanks!</textarea>
+        <button onclick="copyMessage()" style="margin-top:1rem;">Copy Message</button>
+        <button onclick="closeModal()" style="margin-top:0.5rem;background:#a83232;">Close</button>
+      `;
+
       modal.style.display = "flex";
+    }
+
+    // Copy email message to clipboard
+    function copyMessage() {
+      const textarea = document.getElementById("emailTemplate");
+      textarea.select();
+      textarea.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+      alert("Message copied! You can paste it into your email.");
     }
 
     function closeModal() {
