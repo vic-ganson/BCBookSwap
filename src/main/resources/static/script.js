@@ -24,16 +24,32 @@ function validEmail(){
 
 //ON LOGIN FORM SUBMIT
 try{
-  document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    if(!validEmail()){
-      alert("You must login with a Boston College email address (@bc.edu)");
-    } else {
-      //check usernames etc
-      window.location.href = "/index";
+  document.getElementById("loginForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      if(!validEmail()){
+          alert("You must login with a Boston College email address (@bc.edu)");
+          return;
+      }
+  
       let usernameEntry = document.getElementById('loginUsername').value;
       let passwordEntry = document.getElementById('loginPassword').value;
-    }
+  
+      try {
+          const resp = await fetch('/api/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ username: usernameEntry, passwordHash: passwordEntry })
+          });
+  
+          if(resp.ok){
+              window.location.href = "/index.html"; // login success
+          } else {
+              alert("Invalid login");
+          }
+      } catch(e){
+          alert("Server error");
+          console.error(e);
+      }
   });
 } catch(e){}
 
