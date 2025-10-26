@@ -97,4 +97,10 @@ public class ListingsController {
         listings.removeSeller(seller);
         return "redirect:/";
     }
+
+    @GetMapping("/listings/search")
+    @ResponseBody
+    public List<Textbook> searchListings(@RequestParam String term) {
+        return listings.search(term);
+    }
 }
