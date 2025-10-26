@@ -249,10 +249,9 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
+      const sellerId = 1;
       const data = new URLSearchParams({
-        email: 'john@bc.edu',
-        password: 'password123',
+        sellerId: sellerId,
         code: document.getElementById('course').value,
         title: document.getElementById('title').value,
         author: document.getElementById('author').value,
