@@ -249,7 +249,17 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const sellerId = 1;
+      let sellerId = null; // define outside
+      const email = "john@bc.edu"; // replace with dynamic email if needed
+
+      const resp = await fetch(`/api/me?email=${email}`);
+      if (resp.ok) {
+        const user = await resp.json();
+        sellerId = user.id; // now it's accessible below
+      } else {
+        alert("Could not get seller ID");
+        return;
+      }
       const data = new URLSearchParams({
         sellerId: sellerId,
         code: document.getElementById('course').value,
