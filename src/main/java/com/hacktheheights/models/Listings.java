@@ -1,7 +1,7 @@
 package com.hacktheheights.models;
 import java.util.*;
 public class Listings {
-
+//Currently not using this class, just scared to delete before submission
   private HashMap<Account, List<Textbook>> listings;
 
   public Listings() {
