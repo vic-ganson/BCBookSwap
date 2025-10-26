@@ -2,7 +2,6 @@ package com.hacktheheights.controllers;
 
 import com.hacktheheights.models.Account;
 import com.hacktheheights.repositories.AccountRepository;
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,30 +22,30 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Account account) {
-        // Check by email since that's the unique identifier
+        // Check if an account with this email already exists
         if (accountRepo.findByEmail(account.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Email already registered");
         }
 
-        // Encrypt password before saving
+        // Encode password before saving
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         accountRepo.save(account);
 
-        return ResponseEntity.ok("Registered successfully");
+        return ResponseEntity.ok("Registered");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Account loginRequest) {
-        Optional<Account> userOpt = accountRepo.findByEmail(loginRequest.getEmail());
+    public ResponseEntity<String> login(@RequestBody Account account) {
+        Optional<Account> userOpt = accountRepo.findByEmail(account.getEmail());
         if (userOpt.isEmpty()) {
             return ResponseEntity.status(401).body("Invalid login");
         }
 
         Account user = userOpt.get();
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(account.getPassword(), user.getPassword())) {
             return ResponseEntity.status(401).body("Invalid login");
         }
 
-        return ResponseEntity.ok("Logged in successfully");
+        return ResponseEntity.ok("Logged in");
     }
 }
