@@ -23,6 +23,9 @@ public class ListingsController {
                 Account seller = acc;
                 break;
             }
+            Long identification = acc.getId();
+            String email = acc.getEmail();
+            System.out.println("ID: " + identification + ", Email: " + email);
         }
         List<Textbook> books = listings.getListingsBySeller(seller);
         model.addAttribute("books", books);
@@ -41,22 +44,33 @@ public class ListingsController {
     }
 
     @PostMapping("/add")
-    public String addListing(@RequestParam String name, String email, String password,
+    public String addListing(@RequestParam Long id,
                              @RequestParam String code,
                              @RequestParam String title,
                              @RequestParam String author,
                              @RequestParam String ISBN,
                              @RequestParam double price,
                              @RequestParam String condition) {
-        Account seller = new Account(name, email, password);
+        List<Account> allAccounts = accountRepo.findAll();
+        for (Account acc : allAccounts){
+            if (acc.getId() == id){
+                Account seller = acc;
+                break;
+            }
+        }
         listings.addListing(seller, code, title, author, ISBN, price, condition);
         return "redirect:/listings/" + seller.getEmail();
     }
 
     @PostMapping("/remove")
-    public String removeListing(@RequestParam String name, String email, String password,
-                                @RequestParam String code) {
-        Account seller = new Account(name, email, password);
+    public String removeListing(@RequestParam Long id, @RequestParam String code) {
+        List<Account> allAccounts = accountRepo.findAll();
+        for (Account acc : allAccounts){
+            if (acc.getId() == id){
+                Account seller = acc;
+                break;
+            }
+        }
         List<Textbook> sellerBooks = listings.getListingsBySeller(seller);
         for (Textbook t : sellerBooks) {
             if (t.getCourseCode().equals(code)) {
