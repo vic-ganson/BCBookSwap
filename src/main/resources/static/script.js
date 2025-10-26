@@ -34,7 +34,7 @@ try{
       let usernameEntry = document.getElementById('loginUsername').value;
       let passwordEntry = document.getElementById('loginPassword').value;
   
-      try {
+      try { //send username and pass to backend
           const resp = await fetch('/api/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -102,7 +102,7 @@ if (createBtn) {
   });
 }
 
-// already-have-account / login button
+// already have account / login button
 const loginBtn = document.querySelector(".loginButton");
 if (loginBtn) {
   loginBtn.addEventListener("click", function() {
