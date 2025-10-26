@@ -56,20 +56,40 @@ try{
 
 //ON CREATE ACCOUNT FORM SUBMIT
 try{
-  document.getElementById("createAccountForm").addEventListener("submit", function(event) {
+  document.getElementById("createAccountForm").addEventListener("submit", async function(event){
     event.preventDefault();
+
+    if(!validEmail()){
+        alert("You must login with a Boston College email address (@bc.edu)");
+        return;
+    }
+
     let usernameEntry = document.getElementById('loginUsername').value;
     let passwordEntry = document.getElementById('loginPassword').value;
     let passwordEntry2 = document.getElementById('loginPassword2').value;
-    if(!validEmail()){
-      alert("You must login with a Boston College email address (@bc.edu)");
-    } else {
-        if(passwordEntry != passwordEntry2){
-        alert("Your password entries must match.")
-      } else {
-        //save account
-        window.location.href = "/index";
-      }
+
+    if(passwordEntry != passwordEntry2){
+        alert("Passwords must match");
+        return;
+    }
+
+    try {
+        const resp = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: usernameEntry, passwordHash: passwordEntry })
+        });
+
+        if(resp.ok){
+            alert("Account created!");
+            window.location.href = "/login.html"; // send to login page
+        } else {
+            const msg = await resp.text();
+            alert(msg);
+        }
+    } catch(e){
+        alert("Server error");
+        console.error(e);
     }
   });
 } catch(e){}
